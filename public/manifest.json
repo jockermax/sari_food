@@ -1,0 +1,17 @@
+{
+  "name": "SARI FOOD - Livraison à Mbour",
+  "short_name": "SARI",
+  "description": "Plateforme de livraison de fast-food et pâtisserie à Mbour, Sénégal.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDF6EC",
+  "theme_color": "#C94A2A",
+  "icons": [
+    {
+      "src": "https://img.freepik.com/vecteurs-premium/concept-logo-livraison-nourriture-conception-icone-logo-moto-scooter-symbole-vitesse-illustration-vectorielle_645012-680.jpg",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
