@@ -1,4 +1,4 @@
-export const LOGO_URL = "https://d64gsuwffb70l.cloudfront.net/69eb9852a0218e4d303e7bf7_1777047643760_96fb5bdd.jpeg";
+export const LOGO_URL = "/sari_logo.png";
 
 export interface City {
   name: string;

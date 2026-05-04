@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Check, Phone, MessageCircle, ArrowLeft } from 'lucide-react';
+
 import Map, { Marker } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useAppContext } from '@/contexts/AppContext';
 import { formatPrice } from '@/data/sariData';
+import { 
+  ArrowLeft, 
+  MapPin, 
+  Clock, 
+  Phone, 
+  MessageCircle, 
+  Star, 
+  ChevronRight,
+  Package,
+  Bike,
+  CheckCircle2,
+  ReceiptText
+} from 'lucide-react';
 
 const STATUSES = [
   { id: 'received', label: 'Commande reçue', desc: 'Votre commande a été reçue' },
@@ -59,7 +72,7 @@ const OrderTracking: React.FC = () => {
           <p className="text-neutral-500 mb-4">Aucune commande en cours</p>
           <button
             onClick={() => setScreen('restaurants')}
-            className="bg-[#C94A2A] text-white font-bold px-6 py-3 rounded-xl"
+            className="bg-[#FF4B11] text-white font-bold px-6 py-3 rounded-xl"
           >
             Commander
           </button>
@@ -72,16 +85,16 @@ const OrderTracking: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#FDF6EC] pb-6">
-      <div className="bg-white sticky top-0 z-10 px-5 py-4 flex items-center gap-3 shadow-sm">
+      <div className="bg-white sticky top-0 z-20 border-b border-neutral-100 shadow-sm px-5 py-4 flex items-center gap-3">
         <button
           onClick={() => setScreen('restaurants')}
-          className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center"
+          className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-90 transition-all hover:bg-neutral-200"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ArrowLeft className="w-5 h-5 text-neutral-900" />
         </button>
-        <div className="flex-1">
-          <h1 className="text-base font-bold">Suivi de commande</h1>
-          <p className="text-xs text-neutral-500">#{currentOrder.id}</p>
+        <div>
+          <h1 className="text-xl font-black text-neutral-900 leading-none">Suivi de commande</h1>
+          <p className="text-[10px] font-black text-neutral-400 uppercase tracking-widest mt-1.5">ID: {currentOrder.id}</p>
         </div>
       </div>
 
@@ -106,7 +119,7 @@ const OrderTracking: React.FC = () => {
 
           {/* Destination (Customer) */}
           <Marker longitude={customerPos.lng} latitude={customerPos.lat} anchor="bottom">
-            <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center shadow-xl border-2 border-white">
+            <div className="w-10 h-10 rounded-full bg-[#87C025] flex items-center justify-center shadow-xl border-2 border-white">
               <span className="text-white text-lg">📍</span>
             </div>
           </Marker>
@@ -115,10 +128,10 @@ const OrderTracking: React.FC = () => {
           {statusIdx >= 2 && (
             <Marker longitude={driverPos.lng} latitude={driverPos.lat} anchor="center">
               <div className="relative">
-                <div className="w-12 h-12 rounded-full bg-[#C94A2A] flex items-center justify-center shadow-2xl border-2 border-white">
+                <div className="w-12 h-12 rounded-full bg-[#FF4B11] flex items-center justify-center shadow-2xl border-2 border-white">
                   <span className="text-white text-xl">🛵</span>
                 </div>
-                <div className="absolute inset-0 rounded-full bg-[#C94A2A]/40 animate-ping" />
+                <div className="absolute inset-0 rounded-full bg-[#FF4B11]/40 animate-ping" />
               </div>
             </Marker>
           )}
@@ -126,40 +139,49 @@ const OrderTracking: React.FC = () => {
       </div>
 
       <div className="px-5 -mt-6 relative z-10">
-        <div className="bg-white rounded-2xl p-5 shadow-lg">
-          <div className="flex items-center justify-between mb-1">
-            <h2 className="font-extrabold text-lg text-neutral-900">
-              {STATUSES[statusIdx].label}
-            </h2>
-            <span className="bg-[#FDF6EC] text-[#C94A2A] font-bold text-sm px-3 py-1 rounded-full">
-              ~{eta} min
-            </span>
+        <div className="bg-white rounded-[32px] p-6 shadow-xl shadow-neutral-200/50 border border-neutral-100">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="font-black text-xl text-neutral-900 leading-tight">
+                {STATUSES[statusIdx].label}
+              </h2>
+              <p className="text-xs font-bold text-neutral-400 mt-1 uppercase tracking-wider">{STATUSES[statusIdx].desc}</p>
+            </div>
+            <div className="bg-[#FF4B11]/5 text-[#FF4B11] px-4 py-2 rounded-[18px] border border-[#FF4B11]/10 flex flex-col items-center">
+              <span className="text-[10px] font-black uppercase tracking-tighter">Arrivée</span>
+              <span className="font-black text-lg leading-none mt-0.5">{eta} min</span>
+            </div>
           </div>
-          <p className="text-sm text-neutral-500">{STATUSES[statusIdx].desc}</p>
 
-          <div className="mt-5 space-y-4">
+          <div className="space-y-6">
             {STATUSES.map((s, i) => {
               const done = i < statusIdx;
               const active = i === statusIdx;
+              const icons = [Clock, Package, Bike, CheckCircle2];
+              const Icon = icons[i];
+              
               return (
-                <div key={s.id} className="flex gap-3 relative">
+                <div key={s.id} className="flex gap-4 relative group">
                   {i < STATUSES.length - 1 && (
-                    <div className={`absolute left-[15px] top-9 w-0.5 h-6 ${done ? 'bg-green-500' : 'bg-neutral-200'}`} />
+                    <div className={`absolute left-[19px] top-10 w-[2px] h-8 rounded-full ${done ? 'bg-[#87C025]' : 'bg-neutral-100'}`} />
                   )}
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all ${
-                    done ? 'bg-green-500' :
-                    active ? 'bg-[#C94A2A] shadow-lg shadow-[#C94A2A]/30' : 'bg-neutral-200'
+                  <div className={`w-10 h-10 rounded-[14px] flex items-center justify-center flex-shrink-0 transition-all duration-500 ${
+                    done ? 'bg-[#87C025] text-white' :
+                    active ? 'bg-[#FF4B11] text-white shadow-lg shadow-[#FF4B11]/25 scale-110' : 'bg-neutral-50 text-neutral-300'
                   }`}>
-                    {done ? <Check className="w-4 h-4 text-white" /> : (
-                      <span className={`w-2 h-2 rounded-full ${active ? 'bg-white animate-pulse' : 'bg-neutral-400'}`} />
-                    )}
+                    <Icon className={`w-5 h-5 ${active ? 'animate-pulse' : ''}`} />
                   </div>
-                  <div className="flex-1 pb-1">
-                    <p className={`font-bold text-sm ${active ? 'text-[#C94A2A]' : done ? 'text-green-600' : 'text-neutral-400'}`}>
+                  <div className="flex-1 pt-1.5">
+                    <p className={`font-black text-xs uppercase tracking-widest ${active ? 'text-neutral-900' : done ? 'text-[#87C025]' : 'text-neutral-300'}`}>
                       {s.label}
                     </p>
-                    {active && <p className="text-xs text-neutral-500 mt-0.5">{s.desc}</p>}
+                    {active && <p className="text-[10px] font-bold text-neutral-400 mt-1">{s.desc}</p>}
                   </div>
+                  {done && (
+                    <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center border border-neutral-100 shadow-sm mt-2">
+                      <CheckCircle2 className="w-3 h-3 text-[#87C025]" />
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -168,58 +190,75 @@ const OrderTracking: React.FC = () => {
 
         {/* Delivery person */}
         {statusIdx >= 2 && statusIdx < 3 && (
-          <div className="bg-white rounded-2xl p-4 shadow-sm mt-4 flex items-center gap-3 animate-fade-in">
-            <img
-              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200"
-              alt="Livreur"
-              className="w-12 h-12 rounded-full object-cover"
-            />
-            <div className="flex-1">
-              <p className="font-bold text-sm">Moussa D.</p>
-              <p className="text-xs text-neutral-500">Votre livreur · ⭐ 4.9</p>
+          <div className="bg-white rounded-[28px] p-5 shadow-sm mt-5 border border-neutral-100 flex items-center gap-4 animate-fade-in group">
+            <div className="relative">
+              <img
+                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200"
+                alt="Livreur"
+                className="w-16 h-16 rounded-[22px] object-cover shadow-sm group-hover:scale-105 transition-transform"
+              />
+              <div className="absolute -bottom-1.5 -right-1.5 w-7 h-7 bg-[#87C025] rounded-xl shadow-md border-[3px] border-white flex items-center justify-center">
+                <Bike className="w-4 h-4 text-white" />
+              </div>
             </div>
-            <button className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
-              <Phone className="w-5 h-5 text-white" />
-            </button>
-            <button className="w-10 h-10 rounded-full bg-[#C94A2A] flex items-center justify-center">
-              <MessageCircle className="w-5 h-5 text-white" />
-            </button>
+            <div className="flex-1">
+              <p className="font-black text-neutral-900 text-base leading-none mb-1.5">Moussa D.</p>
+              <div className="flex items-center gap-1.5">
+                <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
+                <span className="text-[11px] font-black text-neutral-500 uppercase tracking-widest leading-none">4.9 · Livreur Pro</span>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <button className="w-11 h-11 rounded-[16px] bg-neutral-50 flex items-center justify-center text-neutral-400 hover:bg-neutral-100 active:scale-90 transition-all border border-neutral-100/50">
+                <MessageCircle className="w-5 h-5" />
+              </button>
+              <button className="w-11 h-11 rounded-[16px] bg-[#FF4B11] flex items-center justify-center text-white shadow-lg shadow-[#FF4B11]/25 active:scale-90 transition-all hover:bg-[#e6440f]">
+                <Phone className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         )}
 
         {/* Order summary */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm mt-4">
-          <div className="flex items-center justify-between mb-3">
-            <h4 className="font-bold text-sm">Détails de la commande</h4>
-            <span className="text-xs text-neutral-500">{currentOrder.restaurant?.name}</span>
+        <div className="bg-white rounded-[28px] p-6 shadow-sm mt-4 border border-neutral-100">
+          <div className="flex items-center gap-2 mb-4">
+            <ReceiptText className="w-4 h-4 text-neutral-400" />
+            <h4 className="text-[10px] font-black text-neutral-400 uppercase tracking-[0.2em]">Détails de la commande</h4>
           </div>
-          <div className="space-y-2 mb-3">
+          <div className="space-y-3 mb-5">
             {currentOrder.items.map((item: any) => (
-              <div key={item.id} className="flex justify-between text-sm">
-                <span className="text-neutral-700">{item.quantity}× {item.name}</span>
-                <span className="font-semibold">{formatPrice(item.price * item.quantity)}</span>
+              <div key={item.id} className="flex justify-between items-center text-sm">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg bg-neutral-50 flex items-center justify-center text-[10px] font-black text-neutral-400 border border-neutral-100">
+                    {item.quantity}
+                  </div>
+                  <span className="font-bold text-neutral-700">{item.name}</span>
+                </div>
+                <span className="font-black text-neutral-900">{formatPrice(item.price * item.quantity)}</span>
               </div>
             ))}
           </div>
-          <div className="border-t border-neutral-100 pt-3 flex justify-between">
-            <span className="font-bold">Total payé</span>
-            <span className="font-extrabold text-[#C94A2A]">{formatPrice(currentOrder.total)}</span>
+          <div className="border-t border-neutral-50 pt-4 flex justify-between items-center">
+            <span className="font-black text-[10px] text-neutral-400 uppercase tracking-widest">Total payé</span>
+            <span className="font-black text-xl text-[#FF4B11]">{formatPrice(currentOrder.total)}</span>
           </div>
         </div>
 
         {statusIdx === 3 && (
-          <div className="space-y-3 mt-4">
+          <div className="space-y-4 mt-8">
             <button
               onClick={() => setScreen('rating')}
-              className="w-full bg-[#F4A012] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#F4A012]/30 flex items-center justify-center gap-2"
+              className="w-full bg-neutral-900 text-white font-black py-5 rounded-[24px] shadow-xl shadow-neutral-900/30 flex items-center justify-center gap-3 active:scale-[0.98] transition-all uppercase tracking-widest text-[13px]"
             >
-              ⭐ Évaluer la commande
+              <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" /> 
+              Évaluer ma commande
             </button>
             <button
               onClick={() => setScreen('restaurants')}
-              className="w-full bg-[#C94A2A] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#C94A2A]/30"
+              className="w-full bg-[#FF4B11] text-white font-black py-5 rounded-[24px] shadow-xl shadow-[#FF4B11]/30 flex items-center justify-center gap-3 active:scale-[0.98] transition-all uppercase tracking-widest text-[13px]"
             >
               Commander à nouveau
+              <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         )}
@@ -233,3 +272,8 @@ const OrderTracking: React.FC = () => {
 };
 
 export default OrderTracking;
+
+
+
+
+

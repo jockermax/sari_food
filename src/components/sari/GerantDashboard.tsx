@@ -1,21 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  BarChart3, ShoppingBag, Clock, Star, Bell, BellOff, ChevronRight,
-  TrendingUp, Package, CheckCircle, AlertCircle, Truck, LogOut,
-  Menu as MenuIcon, Settings, Volume2, VolumeX
-} from 'lucide-react';
+
 import { useAppContext } from '@/contexts/AppContext';
 import { BRANCH_ORDERS as MANAGER_ORDERS, MANAGER_STATS, BranchOrder as ManagerOrder, OWNER_BRANCHES } from '@/data/managerData';
 import { formatPrice } from '@/data/sariData';
+import { 
+  Bell, 
+  LogOut, 
+  Volume2, 
+  VolumeX, 
+  ShoppingBag, 
+  DollarSign, 
+  Star, 
+  Utensils, 
+  Package, 
+  Truck, 
+  Settings, 
+  AlertCircle, 
+  CheckCircle, 
+  Clock, 
+  Check, 
+  XCircle, 
+  Activity, 
+  ChevronRight,
+  MapPin,
+  ClipboardList
+} from 'lucide-react';
 
 const STATUS_CONFIG: Record<ManagerOrder['status'], { label: string; color: string; bg: string; icon: any }> = {
-  pending:    { label: 'En attente',     color: '#C94A2A', bg: '#FEF2F0', icon: AlertCircle },
-  accepted:   { label: 'Acceptée',       color: '#7C3AED', bg: '#F5F3FF', icon: CheckCircle },
-  preparing:  { label: 'En préparation', color: '#F4A012', bg: '#FFFBEB', icon: Clock },
-  ready:      { label: 'Prête',          color: '#0F766E', bg: '#F0FDFA', icon: Package },
-  delivering: { label: 'En livraison',   color: '#2563EB', bg: '#EFF6FF', icon: Truck },
-  delivered:  { label: 'Livrée',         color: '#16a34a', bg: '#F0FDF4', icon: CheckCircle },
-  refused:    { label: 'Refusée',        color: '#6b7280', bg: '#F9FAFB', icon: AlertCircle },
+  pending:    { label: 'En attente',     color: '#FF4B11', bg: '#FEF2F0', icon: AlertCircle },
+  accepted:   { label: 'Acceptée',       color: '#87C025', bg: '#FDF6EC', icon: CheckCircle },
+  preparing:  { label: 'En préparation', color: '#FF4B11', bg: '#FFFBEB', icon: Clock },
+  ready:      { label: 'Prête',          color: '#FF4B11', bg: '#F0FDFA', icon: Check },
+  delivering: { label: 'En livraison',   color: '#FF4B11', bg: '#FDF6EC', icon: Truck },
+  delivered:  { label: 'Livrée',         color: '#87C025', bg: '#FDF6EC', icon: CheckCircle },
+  refused:    { label: 'Refusée',        color: '#6b7280', bg: '#F9FAFB', icon: XCircle },
 };
 
 const PAYMENT_LABEL: Record<string, string> = {
@@ -80,7 +98,7 @@ const GerantDashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-neutral-50 pb-24">
       {/* Header */}
-      <div className="bg-[#7C3AED] px-5 pt-10 pb-20 relative overflow-hidden">
+      <div className="bg-[#87C025] px-5 pt-10 pb-20 relative overflow-hidden">
         <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-white/10" />
         <div className="absolute bottom-0 left-8 w-24 h-24 rounded-full bg-white/5" />
         <div className="relative">
@@ -92,47 +110,46 @@ const GerantDashboard: React.FC = () => {
             </div>
             <div className="flex gap-2">
               {/* 🔔 Sound toggle */}
+            <div className="flex gap-2">
               <button
                 onClick={() => {
                   const next = !soundEnabled;
                   setSoundEnabled(next);
-                  if (next) playBeep(); // preview the sound on enable
+                  if (next) playBeep();
                 }}
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                  soundEnabled ? 'bg-[#F4A012]' : 'bg-white/20'
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all backdrop-blur-sm ${
+                  soundEnabled ? 'bg-[#FF4B11]' : 'bg-white/20'
                 }`}
                 title={soundEnabled ? 'Son activé' : 'Activer le son'}
               >
-                {soundEnabled
-                  ? <Volume2 className="w-5 h-5 text-white" />
-                  : <VolumeX className="w-5 h-5 text-white" />
-                }
+                {soundEnabled ? <Volume2 className="w-5 h-5 text-white" /> : <VolumeX className="w-5 h-5 text-white" />}
               </button>
 
               {pendingCount > 0 && (
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
                     <Bell className="w-5 h-5 text-white" />
                   </div>
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#C94A2A] rounded-full text-white text-[10px] font-bold flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#FF4B11] rounded-full text-white text-[10px] font-bold flex items-center justify-center border-2 border-[#87C025]">
                     {pendingCount}
                   </span>
                 </div>
               )}
               <button
                 onClick={() => { setIsAuthenticated(false); setScreen('role-select'); }}
-                className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"
+                className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm active:scale-90 transition-transform"
               >
-                <LogOut className="w-4 h-4 text-white" />
+                <LogOut className="w-5 h-5 text-white" />
               </button>
+            </div>
             </div>
           </div>
 
           {/* Sound alert banner */}
           {soundEnabled && pendingCount > 0 && (
-            <div className="mb-4 bg-[#F4A012]/20 border border-[#F4A012]/40 rounded-xl px-3 py-2 flex items-center gap-2">
-              <Volume2 className="w-4 h-4 text-[#F4A012] flex-shrink-0" />
-              <p className="text-[#F4A012] text-xs font-bold">Alerte sonore active · {pendingCount} commande{pendingCount > 1 ? 's' : ''} en attente !</p>
+            <div className="mb-4 bg-[#FF4B11]/20 border border-[#FF4B11]/40 rounded-xl px-3 py-2 flex items-center gap-2">
+              
+              <p className="text-[#FF4B11] text-xs font-bold">Alerte sonore active · {pendingCount} commande{pendingCount > 1 ? 's' : ''} en attente !</p>
             </div>
           )}
 
@@ -140,13 +157,13 @@ const GerantDashboard: React.FC = () => {
           <div className="grid grid-cols-3 gap-3">
             {[
               { icon: ShoppingBag, value: MANAGER_STATS.todayOrders, label: "Aujourd'hui", sub: 'commandes' },
-              { icon: TrendingUp,  value: formatPrice(MANAGER_STATS.todayRevenue), label: 'Revenus', sub: 'du jour' },
+              { icon: DollarSign,  value: formatPrice(MANAGER_STATS.todayRevenue), label: 'Revenus', sub: 'du jour' },
               { icon: Star,        value: MANAGER_STATS.rating, label: 'Note', sub: 'clients' },
             ].map((s, i) => (
-              <div key={i} className="bg-white/15 rounded-2xl p-3 text-center">
+              <div key={i} className="bg-white/15 rounded-2xl p-3 text-center border border-white/10 backdrop-blur-sm">
                 <s.icon className="w-4 h-4 text-white/80 mx-auto mb-1" />
                 <p className="text-white font-extrabold text-sm leading-none">{s.value}</p>
-                <p className="text-white/60 text-[10px] mt-0.5">{s.sub}</p>
+                <p className="text-white/60 text-[10px] mt-0.5 uppercase tracking-tighter font-bold">{s.sub}</p>
               </div>
             ))}
           </div>
@@ -158,16 +175,16 @@ const GerantDashboard: React.FC = () => {
         <button
           onClick={() => setActiveTab('live')}
           className={`flex-1 py-3 rounded-2xl font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 ${
-            activeTab === 'live' ? 'bg-white text-[#7C3AED]' : 'bg-white/70 text-neutral-500'
+            activeTab === 'live' ? 'bg-white text-[#87C025]' : 'bg-white/70 text-neutral-500'
           }`}
         >
-          <span className="w-2 h-2 rounded-full bg-[#C94A2A] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#FF4B11] animate-pulse" />
           En cours ({liveOrders.length})
         </button>
         <button
           onClick={() => setActiveTab('history')}
           className={`flex-1 py-3 rounded-2xl font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 ${
-            activeTab === 'history' ? 'bg-white text-[#7C3AED]' : 'bg-white/70 text-neutral-500'
+            activeTab === 'history' ? 'bg-white text-[#87C025]' : 'bg-white/70 text-neutral-500'
           }`}
         >
           Historique ({historyOrders.length})
@@ -177,32 +194,32 @@ const GerantDashboard: React.FC = () => {
       {/* Action buttons */}
       <div className="px-5 mt-6 grid grid-cols-4 gap-3">
         <button onClick={() => setScreen('gerant-menu')}
-          className="bg-white rounded-2xl p-3 shadow-sm flex flex-col items-center justify-center gap-2 active:scale-[0.98]">
-          <div className="w-10 h-10 rounded-xl bg-[#F5F3FF] flex items-center justify-center">
-            <MenuIcon className="w-5 h-5 text-[#7C3AED]" />
+          className="bg-white rounded-2xl p-3 shadow-sm flex flex-col items-center justify-center gap-2 active:scale-[0.98] transition-transform border border-neutral-100">
+          <div className="w-10 h-10 rounded-xl bg-[#87C025]/10 flex items-center justify-center">
+            <Utensils className="w-5 h-5 text-[#87C025]" />
           </div>
-          <p className="font-bold text-xs text-neutral-900">Menu</p>
+          <p className="font-bold text-[10px] uppercase tracking-tight text-neutral-900">Menu</p>
         </button>
         <button onClick={() => setScreen('gerant-inventory')}
-          className="bg-white rounded-2xl p-3 shadow-sm flex flex-col items-center justify-center gap-2 active:scale-[0.98]">
-          <div className="w-10 h-10 rounded-xl bg-[#F0FDF4] flex items-center justify-center">
-            <AlertCircle className="w-5 h-5 text-[#16A34A]" />
+          className="bg-white rounded-2xl p-3 shadow-sm flex flex-col items-center justify-center gap-2 active:scale-[0.98] transition-transform border border-neutral-100">
+          <div className="w-10 h-10 rounded-xl bg-[#87C025]/10 flex items-center justify-center">
+            <Package className="w-5 h-5 text-[#87C025]" />
           </div>
-          <p className="font-bold text-xs text-neutral-900">Stocks</p>
+          <p className="font-bold text-[10px] uppercase tracking-tight text-neutral-900">Stocks</p>
         </button>
         <button onClick={() => setScreen('gerant-livreurs')}
-          className="bg-white rounded-2xl p-3 shadow-sm flex flex-col items-center justify-center gap-2 active:scale-[0.98]">
-          <div className="w-10 h-10 rounded-xl bg-[#EFF6FF] flex items-center justify-center">
-            <Truck className="w-5 h-5 text-[#2563EB]" />
+          className="bg-white rounded-2xl p-3 shadow-sm flex flex-col items-center justify-center gap-2 active:scale-[0.98] transition-transform border border-neutral-100">
+          <div className="w-10 h-10 rounded-xl bg-[#87C025]/10 flex items-center justify-center">
+            <Truck className="w-5 h-5 text-[#87C025]" />
           </div>
-          <p className="font-bold text-xs text-neutral-900">Livreurs</p>
+          <p className="font-bold text-[10px] uppercase tracking-tight text-neutral-900">Livreurs</p>
         </button>
         <button onClick={() => setScreen('gerant-settings')}
-          className="bg-white rounded-2xl p-3 shadow-sm flex flex-col items-center justify-center gap-2 active:scale-[0.98]">
-          <div className="w-10 h-10 rounded-xl bg-[#FDF6EC] flex items-center justify-center">
-            <Settings className="w-5 h-5 text-[#C94A2A]" />
+          className="bg-white rounded-2xl p-3 shadow-sm flex flex-col items-center justify-center gap-2 active:scale-[0.98] transition-transform border border-neutral-100">
+          <div className="w-10 h-10 rounded-xl bg-[#87C025]/10 flex items-center justify-center">
+            <Settings className="w-5 h-5 text-[#87C025]" />
           </div>
-          <p className="font-bold text-xs text-neutral-900">Paramètres</p>
+          <p className="font-bold text-[10px] uppercase tracking-tight text-neutral-900">Paramètres</p>
         </button>
       </div>
 
@@ -222,41 +239,58 @@ const GerantDashboard: React.FC = () => {
               <button
                 key={order.id}
                 onClick={() => handleOrderClick(order.id)}
-                className="w-full bg-white rounded-2xl p-4 shadow-sm text-left active:scale-[0.99] transition-transform"
+                className="w-full bg-white rounded-3xl p-5 shadow-sm border border-neutral-100 text-left active:scale-[0.99] transition-all hover:shadow-md group"
               >
-                <div className="flex items-center justify-between mb-3">
+                {/* Status & ID */}
+                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{ backgroundColor: cfg.bg }}>
-                      <StatusIcon className="w-3.5 h-3.5" style={{ color: cfg.color }} />
-                      <span className="text-xs font-bold" style={{ color: cfg.color }}>{cfg.label}</span>
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl" style={{ backgroundColor: cfg.bg }}>
+                      <StatusIcon className="w-4 h-4" style={{ color: cfg.color }} />
+                      <span className="text-[11px] font-black uppercase tracking-wider" style={{ color: cfg.color }}>{cfg.label}</span>
                     </div>
                     {order.status === 'pending' && (
-                      <span className="w-2 h-2 rounded-full bg-[#C94A2A] animate-pulse" />
+                      <span className="flex h-3 w-3 relative">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF4B11] opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-[#FF4B11]"></span>
+                      </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-neutral-400">{order.createdAt}</span>
-                    <ChevronRight className="w-4 h-4 text-neutral-300" />
+                  <div className="text-right">
+                    <p className="text-[10px] font-black text-neutral-300 uppercase tracking-widest">Commande #{order.id.slice(-5)}</p>
+                    <p className="text-[10px] font-bold text-neutral-400 mt-0.5">{order.createdAt}</p>
                   </div>
                 </div>
 
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="font-extrabold text-neutral-900 text-sm">{order.clientName}</p>
-                    <p className="text-xs text-neutral-500 mt-0.5">
-                      #{order.id} · {order.items.length} article(s) · {PAYMENT_LABEL[order.paymentMethod]}
-                    </p>
-                    <p className="text-xs text-neutral-500 mt-1">
-                      {order.deliveryMode === 'delivery' ? '🛵 Livraison' : '🏪 Retrait'}
-                    </p>
+                {/* Client & Price */}
+                <div className="flex items-end justify-between mb-4">
+                  <div className="flex-1">
+                    <p className="text-base font-black text-neutral-900 leading-tight">{order.clientName}</p>
+                    <div className="flex items-center gap-3 mt-2">
+                      <div className="flex items-center gap-1.5">
+                        <DollarSign className="w-3 h-3 text-neutral-400" />
+                        <span className="text-[10px] font-extrabold text-neutral-500 uppercase">{PAYMENT_LABEL[order.paymentMethod]}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        {order.deliveryMode === 'delivery' ? <Truck className="w-3 h-3 text-[#FF4B11]" /> : <MapPin className="w-3 h-3 text-[#87C025]" />}
+                        <span className="text-[10px] font-extrabold text-neutral-500 uppercase">
+                          {order.deliveryMode === 'delivery' ? 'Livraison' : 'Retrait'}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <span className="font-extrabold text-[#7C3AED]">{formatPrice(orderTotal)}</span>
+                  <div className="bg-[#87C025]/5 px-4 py-2 rounded-2xl border border-[#87C025]/10">
+                    <p className="text-lg font-black text-[#87C025]">{formatPrice(orderTotal)}</p>
+                  </div>
                 </div>
 
-                <div className="mt-3 pt-3 border-t border-neutral-100">
-                  <p className="text-xs text-neutral-500 line-clamp-1">
-                    {order.items.map(i => `${i.qty}× ${i.name}`).join(', ')}
-                  </p>
+                {/* Items Preview */}
+                <div className="bg-neutral-50 rounded-2xl p-3 border border-neutral-100/50 flex items-center justify-between group-hover:bg-neutral-100/80 transition-colors">
+                  <div className="flex-1">
+                    <p className="text-[11px] font-bold text-neutral-600 line-clamp-1">
+                      {order.items.map(i => `${i.qty}× ${i.name}`).join(', ')}
+                    </p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-neutral-300 group-hover:text-[#87C025] transition-transform group-hover:translate-x-1" />
                 </div>
               </button>
             );
@@ -278,17 +312,17 @@ const GerantDashboard: React.FC = () => {
       <div className="px-5 mt-5">
         <div className="bg-white rounded-2xl p-4 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
-            <BarChart3 className="w-4 h-4 text-[#7C3AED]" />
-            <h4 className="font-bold text-sm">Performance semaine</h4>
+            <Activity className="w-4 h-4 text-[#87C025]" />
+            <h4 className="font-extrabold text-sm text-neutral-900 uppercase tracking-tight">Performance semaine</h4>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-[#F5F3FF] rounded-xl p-3">
+            <div className="bg-[#FDF6EC] rounded-xl p-3">
               <p className="text-xs text-neutral-500">Commandes</p>
-              <p className="text-xl font-extrabold text-[#7C3AED]">{MANAGER_STATS.weekOrders}</p>
+              <p className="text-xl font-extrabold text-[#87C025]">{MANAGER_STATS.weekOrders}</p>
             </div>
             <div className="bg-[#FDF6EC] rounded-xl p-3">
               <p className="text-xs text-neutral-500">Revenus semaine</p>
-              <p className="text-base font-extrabold text-[#C94A2A]">{formatPrice(MANAGER_STATS.weekRevenue)}</p>
+              <p className="text-base font-extrabold text-[#FF4B11]">{formatPrice(MANAGER_STATS.weekRevenue)}</p>
             </div>
           </div>
         </div>
@@ -300,3 +334,8 @@ const GerantDashboard: React.FC = () => {
 };
 
 export default GerantDashboard;
+
+
+
+
+

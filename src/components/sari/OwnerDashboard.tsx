@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
-import {
-  MapPin, TrendingUp, ShoppingBag, Star, Plus,
-  ChevronRight, LogOut, ToggleRight, ToggleLeft, Bell,
-  Calendar, Download, BarChart2
-} from 'lucide-react';
+
 import { useAppContext } from '@/contexts/AppContext';
 import { OWNER_BRANCHES, BRANCH_ORDERS, Branch } from '@/data/managerData';
 import { formatPrice } from '@/data/sariData';
 import { LOGO_URL } from '@/data/sariData';
+import { 
+  BarChart3, 
+  ShoppingBag, 
+  DollarSign, 
+  Store, 
+  Star, 
+  TrendingUp, 
+  Calendar, 
+  Download, 
+  Plus, 
+  MapPin, 
+  Bell, 
+  LogOut,
+  ChevronRight,
+  PieChart
+} from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
 const PERIOD_DATA: Record<string, { label: string; revenue: number; orders: number }[]> = {
@@ -122,7 +134,7 @@ const OwnerDashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-neutral-50 pb-24">
       {/* Header */}
-      <div className="bg-[#7C3AED] px-5 pt-10 pb-24 relative overflow-hidden">
+      <div className="bg-[#87C025] px-5 pt-10 pb-24 relative overflow-hidden">
         <div className="absolute -top-8 -right-8 w-48 h-48 rounded-full bg-white/10" />
         <div className="absolute bottom-0 left-10 w-28 h-28 rounded-full bg-white/5" />
         <div className="relative">
@@ -139,44 +151,44 @@ const OwnerDashboard: React.FC = () => {
             <div className="flex gap-2">
               {pendingOrders > 0 && (
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
                     <Bell className="w-5 h-5 text-white" />
                   </div>
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#C94A2A] rounded-full text-white text-[10px] font-bold flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#FF4B11] rounded-full text-white text-[10px] font-bold flex items-center justify-center border-2 border-[#87C025]">
                     {pendingOrders}
                   </span>
                 </div>
               )}
               <button
                 onClick={() => { setIsAuthenticated(false); setScreen('role-select'); }}
-                className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"
+                className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm active:scale-90 transition-transform"
               >
-                <LogOut className="w-4 h-4 text-white" />
+                <LogOut className="w-5 h-5 text-white" />
               </button>
             </div>
           </div>
 
           {/* Summary stats */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-white/15 rounded-2xl p-3">
-              <ShoppingBag className="w-4 h-4 text-white/70 mb-1" />
-              <p className="text-white font-extrabold text-lg leading-none">{periodOrders}</p>
-              <p className="text-white/60 text-[11px] mt-0.5">Commandes ({DATE_FILTER_LABELS[dateFilter].toLowerCase()})</p>
+            <div className="bg-white/15 rounded-2xl p-4 backdrop-blur-md border border-white/10">
+              <ShoppingBag className="w-5 h-5 text-white/60 mb-2" />
+              <p className="text-white font-extrabold text-2xl leading-none">{periodOrders}</p>
+              <p className="text-white/70 text-[10px] font-bold uppercase tracking-wider mt-2">Commandes</p>
             </div>
-            <div className="bg-white/15 rounded-2xl p-3">
-              <TrendingUp className="w-4 h-4 text-white/70 mb-1" />
-              <p className="text-white font-extrabold text-base leading-none">{formatPrice(periodRevenue)}</p>
-              <p className="text-white/60 text-[11px] mt-0.5">Revenus ({DATE_FILTER_LABELS[dateFilter].toLowerCase()})</p>
+            <div className="bg-white/15 rounded-2xl p-4 backdrop-blur-md border border-white/10">
+              <DollarSign className="w-5 h-5 text-white/60 mb-2" />
+              <p className="text-white font-extrabold text-xl leading-none">{formatPrice(periodRevenue)}</p>
+              <p className="text-white/70 text-[10px] font-bold uppercase tracking-wider mt-2">Revenus</p>
             </div>
-            <div className="bg-white/15 rounded-2xl p-3">
-              <MapPin className="w-4 h-4 text-white/70 mb-1" />
-              <p className="text-white font-extrabold text-lg leading-none">{openBranches}/{branches.length}</p>
-              <p className="text-white/60 text-[11px] mt-0.5">Locaux ouverts</p>
+            <div className="bg-white/15 rounded-2xl p-4 backdrop-blur-md border border-white/10">
+              <Store className="w-5 h-5 text-white/60 mb-2" />
+              <p className="text-white font-extrabold text-2xl leading-none">{openBranches}/{branches.length}</p>
+              <p className="text-white/70 text-[10px] font-bold uppercase tracking-wider mt-2">Locaux ouverts</p>
             </div>
-            <div className="bg-white/15 rounded-2xl p-3">
-              <Star className="w-4 h-4 text-white/70 mb-1" />
-              <p className="text-white font-extrabold text-lg leading-none">4.6</p>
-              <p className="text-white/60 text-[11px] mt-0.5">Note globale</p>
+            <div className="bg-white/15 rounded-2xl p-4 backdrop-blur-md border border-white/10">
+              <Star className="w-5 h-5 text-white/60 mb-2" />
+              <p className="text-white font-extrabold text-2xl leading-none">4.6</p>
+              <p className="text-white/70 text-[10px] font-bold uppercase tracking-wider mt-2">Note globale</p>
             </div>
           </div>
         </div>
@@ -185,19 +197,19 @@ const OwnerDashboard: React.FC = () => {
       {/* ── Date filter + Export ─────────────────────── */}
       <div className="px-5 -mt-14 relative z-10">
         <div className="bg-white rounded-2xl shadow-lg p-4">
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-[#7C3AED]" />
-              <span className="text-sm font-extrabold text-neutral-900">Période</span>
+              <Calendar className="w-4 h-4 text-[#87C025]" />
+              <span className="text-sm font-extrabold text-neutral-900 uppercase tracking-tight">Période d'analyse</span>
             </div>
             {/* Export button */}
             <div className="relative">
               <button
                 onClick={() => setShowExportMenu(!showExportMenu)}
-                className="flex items-center gap-1.5 bg-[#7C3AED] text-white text-xs font-bold px-3 py-2 rounded-xl active:scale-95 transition-transform"
+                className="flex items-center gap-2 bg-[#87C025] text-white text-[11px] font-extrabold px-4 py-2.5 rounded-xl shadow-lg shadow-[#87C025]/30 active:scale-95 transition-transform"
               >
                 <Download className="w-3.5 h-3.5" />
-                Exporter
+                EXPORTER
               </button>
               {showExportMenu && (
                 <div className="absolute right-0 top-10 bg-white rounded-xl shadow-xl border border-neutral-100 z-20 overflow-hidden w-36">
@@ -223,7 +235,7 @@ const OwnerDashboard: React.FC = () => {
                 onClick={() => setDateFilter(f)}
                 className={`py-2 rounded-xl text-[11px] font-bold transition-all ${
                   dateFilter === f
-                    ? 'bg-[#7C3AED] text-white shadow-md'
+                    ? 'bg-[#87C025] text-white shadow-md'
                     : 'bg-neutral-100 text-neutral-600'
                 }`}
               >
@@ -238,11 +250,11 @@ const OwnerDashboard: React.FC = () => {
       <div className="px-5 mt-4">
         <div className="bg-white rounded-2xl p-4 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
-            <BarChart2 className="w-4 h-4 text-[#7C3AED]" />
+            <TrendingUp className="w-4 h-4 text-[#87C025]" />
             <h4 className="font-extrabold text-sm text-neutral-900">Pics de commandes</h4>
-            <span className="ml-auto text-[10px] font-bold text-neutral-400 uppercase">{DATE_FILTER_LABELS[dateFilter]}</span>
+            <span className="ml-auto text-[10px] font-bold text-neutral-400 uppercase tracking-widest">{DATE_FILTER_LABELS[dateFilter]}</span>
           </div>
-          <MiniBarChart data={HOURLY_DATA} color="#7C3AED" />
+          <MiniBarChart data={HOURLY_DATA} color="#87C025" />
           <div className="mt-3 flex items-center justify-between text-[11px] text-neutral-400">
             <span>⬆ Pic : 19h–20h</span>
             <span>Max : 24 commandes/h</span>
@@ -254,7 +266,7 @@ const OwnerDashboard: React.FC = () => {
       <div className="px-5 mt-4">
         <div className="bg-white rounded-2xl p-4 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
-            <TrendingUp className="w-4 h-4 text-[#C94A2A]" />
+            <BarChart3 className="w-4 h-4 text-[#87C025]" />
             <h4 className="font-extrabold text-sm text-neutral-900">Revenus par local</h4>
           </div>
           <div className="space-y-3">
@@ -266,11 +278,11 @@ const OwnerDashboard: React.FC = () => {
                 <div key={b.id}>
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs font-bold text-neutral-700 truncate max-w-[60%]">{b.name}</span>
-                    <span className="text-xs font-extrabold text-[#7C3AED]">{formatPrice(rev)}</span>
+                    <span className="text-xs font-extrabold text-[#87C025]">{formatPrice(rev)}</span>
                   </div>
                   <div className="h-2 bg-neutral-100 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-[#7C3AED] to-[#C94A2A] rounded-full transition-all duration-700"
+                      className="h-full bg-gradient-to-r from-[#87C025] to-[#FF4B11] rounded-full transition-all duration-700"
                       style={{ width: `${pct}%` }}
                     />
                   </div>
@@ -285,17 +297,16 @@ const OwnerDashboard: React.FC = () => {
       <div className="px-5 mt-4">
         <button
           onClick={() => setScreen('owner-create-branch')}
-          className="w-full bg-white rounded-2xl p-4 shadow-sm border-2 border-dashed border-[#7C3AED]/40 flex items-center gap-3 active:scale-[0.98] transition-transform"
+          className="w-full bg-white rounded-2xl p-4 shadow-sm border-2 border-dashed border-[#87C025]/40 flex items-center gap-3 active:scale-[0.98] transition-transform"
         >
-          <div className="w-12 h-12 rounded-xl bg-[#7C3AED] flex items-center justify-center flex-shrink-0">
-            <Plus className="w-6 h-6 text-white" />
+          <div className="w-12 h-12 rounded-2xl bg-[#87C025]/10 flex items-center justify-center flex-shrink-0">
+            <Plus className="w-6 h-6 text-[#87C025]" />
           </div>
           <div className="flex-1 text-left">
-            <p className="font-extrabold text-neutral-900">Ouvrir un nouveau local</p>
-            <p className="text-xs text-neutral-500 mt-0.5">Ajouter un restaurant dans une nouvelle zone</p>
+            <p className="font-extrabold text-sm text-neutral-900">Ouvrir un nouveau local</p>
+            <p className="text-[10px] text-neutral-500 font-bold uppercase tracking-tight mt-0.5">Développer votre réseau Sari</p>
           </div>
-          <ChevronRight className="w-5 h-5 text-[#7C3AED]" />
-        </button>
+          <ChevronRight className="w-5 h-5 text-[#87C025]/50" />        </button>
       </div>
 
       {/* Branches list */}
@@ -324,7 +335,7 @@ const OwnerDashboard: React.FC = () => {
                   )}
                   {branchPending > 0 && (
                     <div className="absolute top-3 left-3">
-                      <span className="bg-[#C94A2A] text-white text-[10px] font-extrabold px-2 py-1 rounded-full animate-pulse">
+                      <span className="bg-[#FF4B11] text-white text-[10px] font-extrabold px-2 py-1 rounded-full animate-pulse">
                         {branchPending} en attente
                       </span>
                     </div>
@@ -333,7 +344,7 @@ const OwnerDashboard: React.FC = () => {
                     <h3 className="text-white font-extrabold text-sm">{branch.name}</h3>
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <MapPin className="w-3 h-3 text-white/70" />
-                      <span className="text-white/80 text-xs">{branch.neighborhood}, {branch.city}</span>
+                      <span className="text-white/80 text-[10px] font-bold uppercase tracking-tight">{branch.neighborhood}, {branch.city}</span>
                     </div>
                   </div>
                 </div>
@@ -345,18 +356,18 @@ const OwnerDashboard: React.FC = () => {
                   </div>
                   <div className="flex-1">
                     <p className="text-xs text-neutral-500">Revenus</p>
-                    <p className="font-extrabold text-sm text-[#7C3AED]">{formatPrice(branch.revenueToday * (dateFilter === 'today' ? 1 : Math.round(PERIOD_MULTIPLIER[dateFilter] * 0.9)))}</p>
+                    <p className="font-extrabold text-sm text-[#87C025]">{formatPrice(branch.revenueToday * (dateFilter === 'today' ? 1 : Math.round(PERIOD_MULTIPLIER[dateFilter] * 0.9)))}</p>
                   </div>
                   {branch.rating > 0 && (
-                    <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 text-[#F4A012]" fill="#F4A012" />
-                      <span className="font-extrabold text-sm">{branch.rating}</span>
+                    <div className="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded-lg">
+                      <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                      <span className="font-extrabold text-xs text-yellow-700">{branch.rating}</span>
                     </div>
                   )}
                   {branchLive > 0 && (
-                    <div className="flex items-center gap-1.5 bg-[#C94A2A]/10 px-2 py-1 rounded-lg">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#C94A2A] animate-pulse" />
-                      <span className="text-xs font-bold text-[#C94A2A]">{branchLive} live</span>
+                    <div className="flex items-center gap-1.5 bg-[#FF4B11]/10 px-2 py-1 rounded-lg">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B11] animate-pulse" />
+                      <span className="text-xs font-bold text-[#FF4B11]">{branchLive} live</span>
                     </div>
                   )}
                 </div>
@@ -366,13 +377,14 @@ const OwnerDashboard: React.FC = () => {
                     onClick={() => toggleOpen(branch.id)}
                     className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${branch.isOpen ? 'bg-green-50 text-green-700' : 'bg-neutral-100 text-neutral-600'}`}
                   >
-                    {branch.isOpen ? <><ToggleRight className="w-4 h-4" /> Ouvert</> : <><ToggleLeft className="w-4 h-4" /> Fermé</>}
+                    {branch.isOpen ? <> Ouvert</> : <> Fermé</>}
                   </button>
                   <button
                     onClick={() => handleManage(branch)}
-                    className="flex-1 bg-[#7C3AED] text-white font-bold text-xs py-2 rounded-xl flex items-center justify-center gap-1.5 active:scale-[0.98]"
+                    className="flex-1 bg-[#87C025] text-white font-extrabold text-[11px] uppercase tracking-wider py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-[#87C025]/20 active:scale-[0.98] transition-transform"
                   >
-                    Gérer ce local <ChevronRight className="w-3.5 h-3.5" />
+                    Gérer ce local 
+                    <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -385,3 +397,8 @@ const OwnerDashboard: React.FC = () => {
 };
 
 export default OwnerDashboard;
+
+
+
+
+

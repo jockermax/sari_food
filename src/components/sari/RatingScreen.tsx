@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star, ThumbsUp } from 'lucide-react';
+
 import { useAppContext } from '@/contexts/AppContext';
 
 const QUICK_REVIEWS = [
@@ -33,7 +33,7 @@ const RatingScreen: React.FC = () => {
     return (
       <div className="min-h-screen bg-[#FDF6EC] flex flex-col items-center justify-center px-6 text-center">
         <div className="w-24 h-24 rounded-full bg-green-100 flex items-center justify-center mb-5 animate-bounce-in">
-          <ThumbsUp className="w-12 h-12 text-green-600" />
+          
         </div>
         <h2 className="text-2xl font-extrabold text-neutral-900 mb-2">Merci pour votre avis !</h2>
         <p className="text-neutral-500 text-sm">Votre retour aide à améliorer l'expérience SARI.</p>
@@ -44,7 +44,7 @@ const RatingScreen: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#FDF6EC] flex flex-col pb-10">
       {/* Header */}
-      <div className="bg-[#C94A2A] px-5 pt-10 pb-8 text-center relative overflow-hidden">
+      <div className="bg-[#FF4B11] px-5 pt-10 pb-8 text-center relative overflow-hidden">
         <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/10" />
         <div className="text-4xl mb-2">🎉</div>
         <h1 className="text-white text-xl font-extrabold">Commande livrée !</h1>
@@ -63,19 +63,16 @@ const RatingScreen: React.FC = () => {
               <button
                 key={n}
                 onClick={() => setRestaurantRating(n)}
-                className="active:scale-110 transition-transform"
+                className={`text-2xl transition-transform active:scale-110 ${
+                  n <= restaurantRating ? 'text-[#FF4B11]' : 'text-neutral-200'
+                }`}
               >
-                <Star
-                  className="w-10 h-10 transition-colors"
-                  fill={n <= restaurantRating ? '#F4A012' : 'none'}
-                  stroke={n <= restaurantRating ? '#F4A012' : '#d1d5db'}
-                  strokeWidth={1.5}
-                />
+                ★
               </button>
             ))}
           </div>
           {restaurantRating > 0 && (
-            <p className="text-center text-sm font-bold text-[#F4A012] mt-2">
+            <p className="text-center text-sm font-bold text-[#FF4B11] mt-2">
               {['', 'Très décevant', 'Décevant', 'Correct', 'Très bien', 'Excellent !'][restaurantRating]}
             </p>
           )}
@@ -99,14 +96,11 @@ const RatingScreen: React.FC = () => {
               <button
                 key={n}
                 onClick={() => setLivreurRating(n)}
-                className="active:scale-110 transition-transform"
+                className={`text-2xl transition-transform active:scale-110 ${
+                  n <= livreurRating ? 'text-[#FF4B11]' : 'text-neutral-200'
+                }`}
               >
-                <Star
-                  className="w-10 h-10 transition-colors"
-                  fill={n <= livreurRating ? '#F4A012' : 'none'}
-                  stroke={n <= livreurRating ? '#F4A012' : '#d1d5db'}
-                  strokeWidth={1.5}
-                />
+                ★
               </button>
             ))}
           </div>
@@ -122,7 +116,7 @@ const RatingScreen: React.FC = () => {
                 onClick={() => toggleTag(tag)}
                 className={`px-3 py-2 rounded-full text-xs font-bold transition-all ${
                   selectedTags.includes(tag)
-                    ? 'bg-[#C94A2A] text-white shadow-md shadow-[#C94A2A]/25'
+                    ? 'bg-[#FF4B11] text-white shadow-md shadow-[#FF4B11]/25'
                     : 'bg-neutral-100 text-neutral-700'
                 }`}
               >
@@ -151,7 +145,7 @@ const RatingScreen: React.FC = () => {
         <button
           onClick={handleSubmit}
           disabled={restaurantRating === 0}
-          className="w-full bg-[#C94A2A] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#C94A2A]/30 active:scale-[0.98] disabled:opacity-40 disabled:shadow-none"
+          className="w-full bg-[#FF4B11] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#FF4B11]/30 active:scale-[0.98] disabled:opacity-40 disabled:shadow-none"
         >
           Envoyer mon avis
         </button>
@@ -167,3 +161,8 @@ const RatingScreen: React.FC = () => {
 };
 
 export default RatingScreen;
+
+
+
+
+

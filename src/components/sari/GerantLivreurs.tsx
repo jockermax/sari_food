@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Plus, X, Truck, ToggleLeft, ToggleRight, Phone } from 'lucide-react';
+
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,6 +12,18 @@ const livreurSchema = z.object({
 type LivreurFormValues = z.infer<typeof livreurSchema>;
 import { useAppContext } from '@/contexts/AppContext';
 import { BRANCH_LIVREURS, Livreur } from '@/data/managerData';
+import { 
+  ArrowLeft, 
+  Plus, 
+  Bike, 
+  Phone, 
+  X, 
+  UserPlus, 
+  History, 
+  CheckCircle, 
+  AlertCircle,
+  ChevronRight
+} from 'lucide-react';
 
 const GerantLivreurs: React.FC = () => {
   const { setScreen, activeBranchId, role } = useAppContext();
@@ -46,25 +58,25 @@ const GerantLivreurs: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-neutral-50 pb-24">
-      <div className="bg-white sticky top-0 z-10 shadow-sm">
+      <div className="bg-white sticky top-0 z-20 border-b border-neutral-100 shadow-sm">
         <div className="px-5 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setScreen(role === 'owner' ? 'owner-branch' : 'gerant-dashboard')}
-              className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-95"
+              className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-90 transition-all hover:bg-neutral-200"
             >
-              <ArrowLeft className="w-5 h-5 text-neutral-700" />
+              <ArrowLeft className="w-5 h-5 text-neutral-600" />
             </button>
             <div>
-              <h1 className="text-lg font-extrabold text-neutral-900">Livreurs</h1>
-              <p className="text-xs text-neutral-500">Gérer l'équipe de livraison</p>
+              <h1 className="text-xl font-black text-neutral-900 leading-none">Livreurs</h1>
+              <p className="text-[10px] font-black text-neutral-400 uppercase tracking-widest mt-1">Équipe de livraison</p>
             </div>
           </div>
           <button 
             onClick={() => setShowAddModal(true)}
-            className="w-10 h-10 rounded-full bg-[#2563EB] flex items-center justify-center shadow-lg active:scale-95"
+            className="w-11 h-11 rounded-[16px] bg-[#87C025] text-white flex items-center justify-center shadow-lg shadow-[#87C025]/30 active:scale-90 transition-all hover:bg-[#76a820]"
           >
-            <Plus className="w-5 h-5 text-white" />
+            <Plus className="w-6 h-6" />
           </button>
         </div>
       </div>
@@ -72,31 +84,49 @@ const GerantLivreurs: React.FC = () => {
       <div className="px-5 pt-5 space-y-3">
         {livreurs.length === 0 && (
           <div className="text-center py-10 bg-white rounded-2xl shadow-sm">
-            <Truck className="w-12 h-12 text-neutral-200 mx-auto mb-2" />
-            <p className="text-neutral-500 font-bold">Aucun livreur assigné</p>
+            <Bike className="w-10 h-10 text-neutral-200 mx-auto mb-3" />
+            <p className="text-neutral-500 font-extrabold uppercase text-xs tracking-widest">Aucun livreur assigné</p>
+            <p className="text-[10px] text-neutral-400 mt-1">Ajoutez un livreur pour ce local</p>
           </div>
         )}
         
         {livreurs.map(l => (
-          <div key={l.id} className="bg-white rounded-2xl p-4 shadow-sm flex items-center justify-between">
+          <div key={l.id} className="bg-white rounded-[28px] p-5 shadow-sm border border-neutral-100 flex items-center justify-between group">
             <div className="flex items-center gap-4">
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${l.isActive ? 'bg-[#EFF6FF]' : 'bg-neutral-100'}`}>
-                <Truck className={`w-6 h-6 ${l.isActive ? 'text-[#2563EB]' : 'text-neutral-400'}`} />
+              <div className="relative">
+                <div className={`w-14 h-14 rounded-[20px] flex items-center justify-center transition-all ${l.isActive ? 'bg-gradient-to-br from-[#87C025] to-[#76a820] text-white' : 'bg-neutral-100 text-neutral-400'}`}>
+                  <Bike className="w-7 h-7" />
+                </div>
+                {l.isActive && (
+                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-white rounded-lg shadow-sm flex items-center justify-center border border-neutral-50">
+                    <div className="w-2.5 h-2.5 bg-[#87C025] rounded-full animate-pulse" />
+                  </div>
+                )}
               </div>
               <div>
-                <p className="font-extrabold text-neutral-900">{l.name}</p>
-                <div className="flex items-center gap-1 text-xs text-neutral-500 mt-0.5">
-                  <Phone className="w-3 h-3" /> {l.phone}
+                <p className="font-black text-neutral-900 text-base leading-tight mb-1">{l.name}</p>
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-neutral-400 uppercase tracking-tight">
+                    <Phone className="w-3 h-3 text-[#FF4B11]" />
+                    {l.phone}
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[10px] font-black text-neutral-400 uppercase tracking-widest">
+                    <History className="w-3 h-3" />
+                    {l.ordersDelivered} courses
+                  </div>
                 </div>
-                <p className="text-[10px] font-bold text-neutral-400 mt-1">{l.ordersDelivered} courses terminées</p>
               </div>
             </div>
             
-            <button onClick={() => toggleStatus(l.id)} className="active:scale-95 transition-transform">
-              {l.isActive 
-                ? <ToggleRight className="w-8 h-8 text-[#16A34A]" />
-                : <ToggleLeft className="w-8 h-8 text-neutral-300" />
-              }
+            <button 
+              onClick={() => toggleStatus(l.id)} 
+              className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all active:scale-90 ${
+                l.isActive 
+                  ? 'bg-red-50 text-red-600 border border-red-100' 
+                  : 'bg-green-50 text-green-600 border border-green-100'
+              }`}
+            >
+              {l.isActive ? 'Suspendre' : 'Activer'}
             </button>
           </div>
         ))}
@@ -106,35 +136,47 @@ const GerantLivreurs: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
           <div className="absolute inset-0 bg-black/60" onClick={() => setShowAddModal(false)} />
           <div className="relative w-full max-w-md bg-white rounded-t-3xl sm:rounded-3xl p-6 animate-slide-up">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-extrabold text-neutral-900">Nouveau livreur</h2>
-              <button onClick={() => { setShowAddModal(false); reset(); }} className="p-2 bg-neutral-100 rounded-full">
-                <X className="w-5 h-5 text-neutral-600" />
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-2xl font-black text-neutral-900 leading-none">Nouveau livreur</h2>
+                <p className="text-xs font-bold text-neutral-400 mt-2">Ajoutez un collaborateur à l'équipe</p>
+              </div>
+              <button 
+                onClick={() => { setShowAddModal(false); reset(); }} 
+                className="w-10 h-10 bg-neutral-50 rounded-2xl flex items-center justify-center text-neutral-400 hover:bg-neutral-100 active:scale-90 transition-all"
+              >
+                <X className="w-5 h-5" />
               </button>
             </div>
             
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               <div>
-                <label className="text-sm font-semibold text-neutral-700 block mb-1.5">Nom complet</label>
-                <input 
-                  {...register('name')}
-                  className={`w-full bg-neutral-50 border ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-neutral-200 focus:border-[#2563EB]'} rounded-xl px-4 py-3 outline-none`}
-                  placeholder="Ex: Amadou Diallo"
-                />
-                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
+                <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest mb-2 block ml-1">Nom complet</label>
+                <div className="relative">
+                  <UserPlus className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-300" />
+                  <input 
+                    {...register('name')}
+                    className={`w-full bg-neutral-50 border-2 ${errors.name ? 'border-red-500' : 'border-transparent focus:border-[#FF4B11]/20 focus:bg-white'} rounded-2xl pl-12 pr-4 py-4 outline-none transition-all font-bold text-neutral-900 placeholder:text-neutral-300`}
+                    placeholder="Ex: Amadou Diallo"
+                  />
+                </div>
+                {errors.name && <p className="text-red-500 text-[10px] font-bold mt-1.5 ml-1">{errors.name.message}</p>}
               </div>
               <div>
-                <label className="text-sm font-semibold text-neutral-700 block mb-1.5">Téléphone</label>
-                <input 
-                  type="tel"
-                  {...register('phone')}
-                  className={`w-full bg-neutral-50 border ${errors.phone ? 'border-red-500 focus:border-red-500' : 'border-neutral-200 focus:border-[#2563EB]'} rounded-xl px-4 py-3 outline-none`}
-                  placeholder="77 123 45 67"
-                />
-                {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
+                <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest mb-2 block ml-1">Téléphone</label>
+                <div className="relative">
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-300" />
+                  <input 
+                    type="tel"
+                    {...register('phone')}
+                    className={`w-full bg-neutral-50 border-2 ${errors.phone ? 'border-red-500' : 'border-transparent focus:border-[#FF4B11]/20 focus:bg-white'} rounded-2xl pl-12 pr-4 py-4 outline-none transition-all font-bold text-neutral-900 placeholder:text-neutral-300`}
+                    placeholder="77 123 45 67"
+                  />
+                </div>
+                {errors.phone && <p className="text-red-500 text-[10px] font-bold mt-1.5 ml-1">{errors.phone.message}</p>}
               </div>
-              <button type="submit" className="w-full bg-[#2563EB] text-white font-bold py-4 rounded-xl mt-4 shadow-lg active:scale-[0.98] transition-transform">
-                Ajouter ce livreur
+              <button type="submit" className="w-full bg-[#87C025] text-white font-black py-4.5 rounded-[20px] mt-4 shadow-xl shadow-[#87C025]/30 active:scale-[0.98] transition-all uppercase tracking-[0.2em] text-[11px] hover:bg-[#76a820]">
+                Ajouter à l'équipe
               </button>
             </form>
           </div>
@@ -149,3 +191,8 @@ const GerantLivreurs: React.FC = () => {
 };
 
 export default GerantLivreurs;
+
+
+
+
+

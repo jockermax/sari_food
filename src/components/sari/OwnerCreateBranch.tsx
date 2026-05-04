@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, MapPin, ChevronDown, Clock, Phone, Truck, CheckCircle } from 'lucide-react';
+
 import { useAppContext } from '@/contexts/AppContext';
 import { CITIES } from '@/data/sariData';
 
@@ -71,9 +71,9 @@ const OwnerCreateBranch: React.FC = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-[#F5F3FF] flex flex-col items-center justify-center px-6 text-center">
-        <div className="w-24 h-24 rounded-full bg-[#7C3AED]/10 flex items-center justify-center mb-5">
-          <CheckCircle className="w-12 h-12 text-[#7C3AED]" />
+      <div className="min-h-screen bg-[#FDF6EC] flex flex-col items-center justify-center px-6 text-center">
+        <div className="w-24 h-24 rounded-full bg-[#87C025]/10 flex items-center justify-center mb-5">
+          
         </div>
         <h2 className="text-2xl font-extrabold text-neutral-900 mb-2">Local créé !</h2>
         <p className="text-neutral-500 text-sm">
@@ -93,7 +93,7 @@ const OwnerCreateBranch: React.FC = () => {
             onClick={() => setScreen('owner-dashboard')}
             className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-95"
           >
-            <ArrowLeft className="w-5 h-5 text-neutral-700" />
+            
           </button>
           <div>
             <h1 className="text-lg font-extrabold text-neutral-900">Nouveau local</h1>
@@ -125,7 +125,7 @@ const OwnerCreateBranch: React.FC = () => {
                   <option key={c} value={c}>{c}</option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
+              
             </div>
           </Field>
         </Section>
@@ -171,7 +171,7 @@ const OwnerCreateBranch: React.FC = () => {
                   <option key={c.name} value={c.name}>{c.name}</option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
+              
             </div>
           </Field>
 
@@ -188,7 +188,7 @@ const OwnerCreateBranch: React.FC = () => {
                     <option key={n} value={n}>{n}</option>
                   ))}
                 </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
+                
               </div>
             </Field>
           )}
@@ -211,8 +211,8 @@ const OwnerCreateBranch: React.FC = () => {
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <div className="bg-[#7C3AED] text-white text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4" />
+                <div className="bg-[#87C025] text-white text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1.5">
+                  
                   {form.neighborhood}, {form.city}
                 </div>
               </div>
@@ -300,16 +300,16 @@ const OwnerCreateBranch: React.FC = () => {
         <button
           onClick={handleSubmit}
           disabled={!isValid}
-          className="w-full bg-[#7C3AED] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#7C3AED]/30 active:scale-[0.98] disabled:opacity-40 disabled:shadow-none flex items-center justify-center gap-2"
+          className="w-full bg-[#87C025] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#87C025]/30 active:scale-[0.98] disabled:opacity-40 disabled:shadow-none flex items-center justify-center gap-2"
         >
-          <CheckCircle className="w-5 h-5" />
+          
           Créer ce local
         </button>
       </div>
 
       <style>{`
         .input-field { width: 100%; background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 0 14px; height: 48px; font-size: 14px; outline: none; color: #111827; }
-        .input-field:focus { border-color: #7C3AED; }
+        .input-field:focus { border-color: #87C025; }
       `}</style>
     </div>
   );
@@ -330,3 +330,8 @@ const Field: React.FC<{ label: string; children: React.ReactNode }> = ({ label, 
 );
 
 export default OwnerCreateBranch;
+
+
+
+
+

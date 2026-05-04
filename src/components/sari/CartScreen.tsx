@@ -1,7 +1,19 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Plus, Minus, Trash2, Tag, ShoppingBag, Home, Store } from 'lucide-react';
+
 import { useAppContext } from '@/contexts/AppContext';
 import { formatPrice, RESTAURANTS } from '@/data/sariData';
+import { 
+  ArrowLeft, 
+  ShoppingBag, 
+  Truck, 
+  Store, 
+  X, 
+  Plus, 
+  Minus, 
+  Tag, 
+  ChevronRight,
+  Info
+} from 'lucide-react';
 
 const CartScreen: React.FC = () => {
   const { cart, updateQuantity, removeFromCart, setScreen, selectedRestaurantId } = useAppContext();
@@ -18,18 +30,18 @@ const CartScreen: React.FC = () => {
   if (cart.length === 0) {
     return (
       <div className="min-h-screen bg-[#FDF6EC] flex flex-col">
-        <div className="bg-white px-5 py-4 flex items-center gap-3">
-          <button
-            onClick={() => setScreen('restaurants')}
-            className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-95"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </button>
-          <h1 className="text-lg font-bold">Panier</h1>
-        </div>
+      <div className="bg-white sticky top-0 z-20 border-b border-neutral-100 shadow-sm px-5 py-4 flex items-center gap-3">
+        <button
+          onClick={() => setScreen('restaurants')}
+          className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-90 transition-all hover:bg-neutral-200"
+        >
+          <ArrowLeft className="w-5 h-5 text-neutral-900" />
+        </button>
+        <h1 className="text-xl font-black text-neutral-900 leading-none">Panier</h1>
+      </div>
         <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
-          <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center mb-5 shadow-md">
-            <ShoppingBag className="w-12 h-12 text-[#C94A2A]" />
+          <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center mb-6 shadow-xl shadow-neutral-200">
+            <ShoppingBag className="w-10 h-10 text-[#FF4B11]" />
           </div>
           <h2 className="text-xl font-extrabold text-neutral-900 mb-2">Panier vide</h2>
           <p className="text-sm text-neutral-500 mb-8 max-w-xs">
@@ -37,9 +49,9 @@ const CartScreen: React.FC = () => {
           </p>
           <button
             onClick={() => setScreen('restaurants')}
-            className="bg-[#C94A2A] text-white font-bold px-8 py-4 rounded-2xl shadow-lg shadow-[#C94A2A]/30 active:scale-[0.98]"
+            className="bg-[#FF4B11] text-white font-extrabold px-10 py-4 rounded-2xl shadow-lg shadow-[#FF4B11]/30 active:scale-[0.98] transition-transform uppercase tracking-widest text-sm"
           >
-            Parcourir les restaurants
+            Parcourir les menus
           </button>
         </div>
       </div>
@@ -48,71 +60,74 @@ const CartScreen: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#FDF6EC] flex flex-col pb-10">
-      <div className="bg-white sticky top-0 z-10 px-5 py-4 flex items-center gap-3 shadow-sm">
+      <div className="bg-white sticky top-0 z-20 border-b border-neutral-100 shadow-sm px-5 py-4 flex items-center gap-3">
         <button
           onClick={() => setScreen('restaurant-detail')}
-          className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-95"
+          className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-90 transition-all hover:bg-neutral-200"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ArrowLeft className="w-5 h-5 text-neutral-900" />
         </button>
         <div>
-          <h1 className="text-lg font-bold">Votre panier</h1>
-          <p className="text-xs text-neutral-500">{restaurant?.name}</p>
+          <h1 className="text-xl font-black text-neutral-900 leading-none">Panier</h1>
+          <p className="text-[10px] font-black text-neutral-400 uppercase tracking-widest mt-1.5">{restaurant?.name}</p>
         </div>
       </div>
 
       <div className="px-5 pt-5 space-y-4">
         {/* Mode selector */}
-        <div className="bg-white rounded-2xl p-1.5 flex shadow-sm">
+        <div className="bg-white rounded-[28px] p-1.5 flex shadow-sm border border-neutral-100">
           <button
             onClick={() => setMode('delivery')}
-            className={`flex-1 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all ${
-              mode === 'delivery' ? 'bg-[#C94A2A] text-white shadow-md' : 'text-neutral-600'
+            className={`flex-1 py-3.5 rounded-[22px] font-black text-[11px] uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${
+              mode === 'delivery' ? 'bg-[#FF4B11] text-white shadow-lg shadow-[#FF4B11]/25' : 'text-neutral-400 hover:text-neutral-900'
             }`}
           >
-            <Home className="w-4 h-4" />
+            <Truck className="w-4 h-4" />
             Livraison
           </button>
           <button
             onClick={() => setMode('pickup')}
-            className={`flex-1 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all ${
-              mode === 'pickup' ? 'bg-[#C94A2A] text-white shadow-md' : 'text-neutral-600'
+            className={`flex-1 py-3.5 rounded-[22px] font-black text-[11px] uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${
+              mode === 'pickup' ? 'bg-[#FF4B11] text-white shadow-lg shadow-[#FF4B11]/25' : 'text-neutral-400 hover:text-neutral-900'
             }`}
           >
             <Store className="w-4 h-4" />
-            À emporter
+            Emporter
           </button>
         </div>
 
         {/* Items */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm space-y-3">
+        <div className="bg-white rounded-[32px] p-6 shadow-sm border border-neutral-100 space-y-5">
           {cart.map(item => (
-            <div key={item.id} className="flex gap-3 pb-3 border-b border-neutral-100 last:border-0 last:pb-0">
-              <img src={item.image} alt={item.name} className="w-16 h-16 rounded-xl object-cover flex-shrink-0" />
-              <div className="flex-1 min-w-0">
-                <h4 className="font-bold text-sm text-neutral-900">{item.name}</h4>
-                <p className="text-[#C94A2A] font-bold text-sm mt-1">{formatPrice(item.price)}</p>
+            <div key={item.id} className="flex gap-4 pb-5 border-b border-neutral-50 last:border-0 last:pb-0">
+              <div className="w-20 h-20 rounded-[22px] overflow-hidden flex-shrink-0 shadow-sm">
+                <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
               </div>
-              <div className="flex flex-col items-end justify-between">
-                <button
-                  onClick={() => removeFromCart(item.id)}
-                  className="text-neutral-400 hover:text-red-500 p-1"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
-                <div className="flex items-center gap-1 bg-[#FDF6EC] rounded-lg p-0.5">
+              <div className="flex-1 min-w-0">
+                <h4 className="font-black text-sm text-neutral-900 mb-0.5">{item.name}</h4>
+                <p className="font-black text-[#FF4B11] text-base">{formatPrice(item.price)}</p>
+                
+                <div className="flex items-center justify-between mt-2">
+                  <div className="flex items-center gap-1 bg-[#FDF6EC] rounded-2xl p-1 border border-[#FF4B11]/10">
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      className="w-7 h-7 rounded-xl bg-white flex items-center justify-center active:scale-90 transition-transform shadow-sm"
+                    >
+                      <Minus className="w-3.5 h-3.5 text-[#FF4B11] stroke-[3]" />
+                    </button>
+                    <span className="font-black text-sm w-7 text-center text-neutral-900">{item.quantity}</span>
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      className="w-7 h-7 rounded-xl bg-[#FF4B11] flex items-center justify-center active:scale-90 transition-transform shadow-md shadow-[#FF4B11]/20"
+                    >
+                      <Plus className="w-3.5 h-3.5 text-white stroke-[3]" />
+                    </button>
+                  </div>
                   <button
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                    className="w-7 h-7 rounded-md bg-white flex items-center justify-center"
+                    onClick={() => removeFromCart(item.id)}
+                    className="w-8 h-8 rounded-full text-red-400 hover:text-red-500 active:scale-90 transition-all"
                   >
-                    <Minus className="w-3 h-3 text-[#C94A2A]" />
-                  </button>
-                  <span className="font-bold text-xs w-5 text-center">{item.quantity}</span>
-                  <button
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    className="w-7 h-7 rounded-md bg-[#C94A2A] flex items-center justify-center"
-                  >
-                    <Plus className="w-3 h-3 text-white" />
+                    <X className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -122,9 +137,9 @@ const CartScreen: React.FC = () => {
 
         {/* Promo code */}
         <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <div className="flex items-center gap-2 mb-2">
-            <Tag className="w-4 h-4 text-[#F4A012]" />
-            <h4 className="font-bold text-sm">Code promo</h4>
+          <div className="flex items-center gap-2 mb-3">
+            <Tag className="w-4 h-4 text-[#FF4B11]" />
+            <h4 className="font-extrabold text-sm text-neutral-900 uppercase tracking-tight">Code promo</h4>
           </div>
           <div className="flex gap-2">
             <input
@@ -135,13 +150,13 @@ const CartScreen: React.FC = () => {
             />
             <button
               onClick={() => setPromoApplied(promo.length > 2)}
-              className="bg-neutral-900 text-white px-5 rounded-xl text-sm font-bold active:scale-95"
+              className="bg-neutral-900 text-white px-6 rounded-xl text-xs font-extrabold uppercase tracking-widest active:scale-95 transition-transform"
             >
               Appliquer
             </button>
           </div>
           {promoApplied && (
-            <p className="text-xs text-green-600 font-semibold mt-2">✓ Code appliqué : -500 FCFA</p>
+            <p className="text-xs text-[#87C025] font-semibold mt-2">✓ Code appliqué : -500 FCFA</p>
           )}
         </div>
 
@@ -156,26 +171,29 @@ const CartScreen: React.FC = () => {
             <span className="font-semibold">{mode === 'delivery' ? formatPrice(deliveryFee) : 'Gratuit'}</span>
           </div>
           {promoApplied && (
-            <div className="flex justify-between text-sm text-green-600">
+            <div className="flex justify-between text-sm text-[#87C025]">
               <span>Réduction</span>
               <span className="font-semibold">-{formatPrice(discount)}</span>
             </div>
           )}
-          <div className="border-t border-neutral-100 pt-2 mt-2 flex justify-between">
-            <span className="font-bold text-neutral-900">Total</span>
-            <span className="font-extrabold text-lg text-[#C94A2A]">{formatPrice(total)}</span>
+          <div className="border-t border-neutral-100 pt-3 mt-1 flex justify-between items-center">
+            <span className="font-extrabold text-neutral-900 uppercase tracking-widest text-xs">Total à payer</span>
+            <span className="font-black text-xl text-[#FF4B11]">{formatPrice(total)}</span>
           </div>
         </div>
       </div>
 
       <div className="flex-1" />
-      <div className="sticky bottom-0 bg-white border-t border-neutral-100 px-5 py-4 z-20">
+      <div className="sticky bottom-0 bg-white/80 backdrop-blur-lg border-t border-neutral-100 px-5 py-6 z-20 max-w-md mx-auto">
         <button
           onClick={() => setScreen('payment')}
-          className="w-full bg-[#C94A2A] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#C94A2A]/30 active:scale-[0.98] flex items-center justify-between px-6"
+          className="w-full bg-[#FF4B11] text-white font-black py-5 rounded-[24px] shadow-xl shadow-[#FF4B11]/30 active:scale-[0.98] transition-all flex items-center justify-between px-8 uppercase tracking-widest text-[13px]"
         >
-          <span>Continuer</span>
-          <span>{formatPrice(total)}</span>
+          <span>Valider la commande</span>
+          <div className="flex items-center gap-2">
+            <span className="text-base font-black">{formatPrice(total)}</span>
+            <ChevronRight className="w-5 h-5" />
+          </div>
         </button>
       </div>
     </div>
@@ -183,3 +201,8 @@ const CartScreen: React.FC = () => {
 };
 
 export default CartScreen;
+
+
+
+
+

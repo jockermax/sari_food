@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Heart, Star, Clock, MapPin, Trash2 } from 'lucide-react';
+
 import { useAppContext } from '@/contexts/AppContext';
 import { RESTAURANTS, formatPrice } from '@/data/sariData';
 
@@ -19,7 +19,7 @@ const FavoritesScreen: React.FC = () => {
           onClick={() => setScreen('profile')}
           className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-95"
         >
-          <ArrowLeft className="w-5 h-5 text-neutral-700" />
+          
         </button>
         <div className="flex-1">
           <h1 className="text-lg font-bold text-neutral-900">Mes favoris</h1>
@@ -28,7 +28,7 @@ const FavoritesScreen: React.FC = () => {
           </p>
         </div>
         <div className="w-10 h-10 rounded-full bg-[#FDF6EC] flex items-center justify-center">
-          <Heart className="w-5 h-5 text-[#C94A2A]" fill="#C94A2A" />
+          
         </div>
       </div>
 
@@ -36,9 +36,9 @@ const FavoritesScreen: React.FC = () => {
         <div className="flex flex-col items-center justify-center px-6 text-center pt-20">
           <div className="relative mb-6">
             <div className="w-28 h-28 rounded-full bg-white flex items-center justify-center shadow-md">
-              <Heart className="w-14 h-14 text-[#C94A2A]" strokeWidth={1.5} />
+              
             </div>
-            <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-[#F4A012] flex items-center justify-center shadow-lg">
+            <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-[#FF4B11] flex items-center justify-center shadow-lg">
               <span className="text-white text-lg font-extrabold">+</span>
             </div>
           </div>
@@ -48,7 +48,7 @@ const FavoritesScreen: React.FC = () => {
           </p>
           <button
             onClick={() => setScreen('restaurants')}
-            className="bg-[#C94A2A] text-white font-bold px-8 py-4 rounded-2xl shadow-lg shadow-[#C94A2A]/30 active:scale-[0.98]"
+            className="bg-[#FF4B11] text-white font-bold px-8 py-4 rounded-2xl shadow-lg shadow-[#FF4B11]/30 active:scale-[0.98]"
           >
             Découvrir les restaurants
           </button>
@@ -75,7 +75,7 @@ const FavoritesScreen: React.FC = () => {
                     </div>
                   )}
                   <div className="absolute top-3 right-3 bg-white/95 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1">
-                    <Star className="w-3.5 h-3.5 text-[#F4A012]" fill="#F4A012" />
+                    
                     <span className="text-xs font-bold">{r.rating}</span>
                   </div>
                 </div>
@@ -89,14 +89,14 @@ const FavoritesScreen: React.FC = () => {
                   <p className="text-xs text-neutral-500 mb-3">{r.cuisine}</p>
                   <div className="flex items-center gap-4 text-xs">
                     <div className="flex items-center gap-1 text-neutral-600">
-                      <Clock className="w-3.5 h-3.5" />
+                      
                       <span className="font-semibold">{r.deliveryTime} min</span>
                     </div>
                     <div className="flex items-center gap-1 text-neutral-600">
-                      <MapPin className="w-3.5 h-3.5" />
+                      
                       <span className="font-semibold">{r.neighborhood}</span>
                     </div>
-                    <div className="ml-auto text-[#C94A2A] font-bold">
+                    <div className="ml-auto text-[#FF4B11] font-bold">
                       {formatPrice(r.deliveryFee)}
                     </div>
                   </div>
@@ -105,7 +105,7 @@ const FavoritesScreen: React.FC = () => {
               <div className="px-4 pb-4 flex gap-2">
                 <button
                   onClick={() => openRestaurant(r.id)}
-                  className="flex-1 bg-[#C94A2A] text-white font-bold py-2.5 rounded-xl text-sm active:scale-[0.98]"
+                  className="flex-1 bg-[#FF4B11] text-white font-bold py-2.5 rounded-xl text-sm active:scale-[0.98]"
                 >
                   Commander
                 </button>
@@ -113,7 +113,7 @@ const FavoritesScreen: React.FC = () => {
                   onClick={(e) => { e.stopPropagation(); toggleFavorite(r.id); }}
                   className="px-4 py-2.5 rounded-xl bg-red-50 text-red-500 font-bold text-sm flex items-center gap-1.5 active:scale-95"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  
                   Retirer
                 </button>
               </div>
@@ -126,3 +126,8 @@ const FavoritesScreen: React.FC = () => {
 };
 
 export default FavoritesScreen;
+
+
+
+
+

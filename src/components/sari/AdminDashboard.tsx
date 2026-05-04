@@ -1,17 +1,36 @@
 import React, { useState } from 'react';
-import {
-  Store, Users, ShoppingBag, TrendingUp, CheckCircle,
-  Clock, AlertCircle, XCircle, ChevronRight, Bell,
-  LogOut, BarChart3, Star, Ban, RefreshCw
-} from 'lucide-react';
+
 import { useAppContext } from '@/contexts/AppContext';
 import { ADMIN_RESTAURANTS, ADMIN_STATS, AdminRestaurant } from '@/data/managerData';
 import { formatPrice } from '@/data/sariData';
+import { 
+  Bell, 
+  LogOut, 
+  ShoppingBag, 
+  DollarSign, 
+  Store, 
+  Users, 
+  AlertCircle, 
+  CheckCircle, 
+  XCircle, 
+  Star, 
+  Activity, 
+  BarChart3, 
+  ChevronRight,
+  Check,
+  ArrowRight,
+  ShieldCheck,
+  Megaphone,
+  Gift,
+  Download,
+  MapPin,
+  Clock
+} from 'lucide-react';
 
 const STATUS_CFG: Record<AdminRestaurant['status'], { label: string; color: string; bg: string; icon: any }> = {
-  active:    { label: 'Actif',      color: '#16a34a', bg: '#F0FDF4', icon: CheckCircle },
-  pending:   { label: 'En attente', color: '#F4A012', bg: '#FFFBEB', icon: Clock },
-  suspended: { label: 'Suspendu',   color: '#dc2626', bg: '#FEF2F2', icon: Ban },
+  active:    { label: 'Actif',      color: '#87C025', bg: '#FDF6EC', icon: CheckCircle },
+  pending:   { label: 'En attente', color: '#FF4B11', bg: '#FFFBEB', icon: Clock },
+  suspended: { label: 'Suspendu',   color: '#dc2626', bg: '#FEF2F2', icon: XCircle },
 };
 
 const TABS = ['Restaurants', 'Statistiques'] as const;
@@ -41,7 +60,7 @@ const AdminDashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-neutral-50 pb-24">
       {/* Header */}
-      <div className="bg-[#0F766E] px-5 pt-10 pb-20 relative overflow-hidden">
+      <div className="bg-[#FF4B11] px-5 pt-10 pb-20 relative overflow-hidden">
         <div className="absolute -top-6 -right-6 w-36 h-36 rounded-full bg-white/10" />
         <div className="absolute bottom-2 left-10 w-20 h-20 rounded-full bg-white/5" />
         <div className="relative">
@@ -54,19 +73,19 @@ const AdminDashboard: React.FC = () => {
             <div className="flex gap-2">
               {pendingCount > 0 && (
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
                     <Bell className="w-5 h-5 text-white" />
                   </div>
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#C94A2A] rounded-full text-white text-[10px] font-bold flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#FF4B11] rounded-full text-white text-[10px] font-bold flex items-center justify-center border-2 border-[#FF4B11]">
                     {pendingCount}
                   </span>
                 </div>
               )}
               <button
                 onClick={() => { setIsAuthenticated(false); setScreen('role-select'); }}
-                className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"
+                className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm active:scale-95 transition-transform"
               >
-                <LogOut className="w-4 h-4 text-white" />
+                <LogOut className="w-5 h-5 text-white" />
               </button>
             </div>
           </div>
@@ -74,15 +93,17 @@ const AdminDashboard: React.FC = () => {
           {/* Top stats */}
           <div className="grid grid-cols-2 gap-3">
             {[
-              { label: "Commandes aujourd'hui", value: ADMIN_STATS.totalOrdersToday, icon: ShoppingBag },
-              { label: 'Revenus du jour', value: formatPrice(ADMIN_STATS.revenueToday), icon: TrendingUp },
-              { label: 'Restaurants actifs', value: `${ADMIN_STATS.activeRestaurants}/${ADMIN_STATS.totalRestaurants}`, icon: Store },
-              { label: 'Utilisateurs actifs', value: ADMIN_STATS.activeUsersToday, icon: Users },
+              { label: "Ventes/Jour", value: ADMIN_STATS.totalOrdersToday, icon: ShoppingBag },
+              { label: 'Revenus', value: formatPrice(ADMIN_STATS.revenueToday), icon: DollarSign },
+              { label: 'Restaurants', value: `${ADMIN_STATS.activeRestaurants}/${ADMIN_STATS.totalRestaurants}`, icon: Store },
+              { label: 'Clients', value: ADMIN_STATS.activeUsersToday, icon: Users },
             ].map((s, i) => (
-              <div key={i} className="bg-white/15 rounded-2xl p-3">
-                <s.icon className="w-4 h-4 text-white/70 mb-1" />
-                <p className="text-white font-extrabold text-base leading-none">{s.value}</p>
-                <p className="text-white/60 text-[10px] mt-1">{s.label}</p>
+              <div key={i} className="bg-white/15 rounded-2xl p-3 border border-white/10 backdrop-blur-sm">
+                <div className="flex items-center gap-2 mb-1">
+                  <s.icon className="w-3.5 h-3.5 text-white/60" />
+                  <p className="text-white font-extrabold text-base leading-none">{s.value}</p>
+                </div>
+                <p className="text-white/60 text-[10px] uppercase tracking-tighter font-bold">{s.label}</p>
               </div>
             ))}
           </div>
@@ -96,7 +117,7 @@ const AdminDashboard: React.FC = () => {
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`flex-1 py-3 rounded-2xl font-bold text-sm shadow-md transition-all ${
-              activeTab === tab ? 'bg-white text-[#0F766E]' : 'bg-white/70 text-neutral-500'
+              activeTab === tab ? 'bg-white text-[#FF4B11]' : 'bg-white/70 text-neutral-500'
             }`}
           >
             {tab}
@@ -113,7 +134,7 @@ const AdminDashboard: React.FC = () => {
                 key={s}
                 onClick={() => setFilterStatus(s)}
                 className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
-                  filterStatus === s ? 'bg-[#0F766E] text-white shadow-md' : 'bg-white text-neutral-600 shadow-sm'
+                  filterStatus === s ? 'bg-[#FF4B11] text-white shadow-md' : 'bg-white text-neutral-600 shadow-sm'
                 }`}
               >
                 {s === 'all' ? 'Tous' : STATUS_CFG[s].label}
@@ -128,11 +149,12 @@ const AdminDashboard: React.FC = () => {
 
           {/* Pending validation alert */}
           {pendingCount > 0 && (
-            <div className="mx-5 mt-4 bg-[#FFFBEB] border border-[#F4A012]/30 rounded-2xl p-4 flex items-center gap-3">
-              <AlertCircle className="w-5 h-5 text-[#F4A012] flex-shrink-0" />
+            <div className="mx-5 mt-4 bg-[#FFFBEB] border border-[#FF4B11]/30 rounded-2xl p-4 flex items-center gap-3">
+              <Clock className="w-5 h-5 text-[#FF4B11]" />
               <p className="text-sm font-bold text-neutral-800 flex-1">
                 {pendingCount} établissement{pendingCount > 1 ? 's' : ''} en attente de validation
               </p>
+              <ChevronRight className="w-4 h-4 text-neutral-400" />
             </div>
           )}
 
@@ -154,7 +176,7 @@ const AdminDashboard: React.FC = () => {
                       <div className="flex items-center gap-2">
                         <h3 className="font-extrabold text-sm text-neutral-900 truncate">{r.name}</h3>
                         <div className="flex items-center gap-1 flex-shrink-0 px-2 py-0.5 rounded-full" style={{ backgroundColor: sCfg.bg }}>
-                          <SIcon className="w-3 h-3" style={{ color: sCfg.color }} />
+                          <SIcon className="w-2.5 h-2.5" style={{ color: sCfg.color }} />
                           <span className="text-[10px] font-bold" style={{ color: sCfg.color }}>{sCfg.label}</span>
                         </div>
                       </div>
@@ -172,7 +194,7 @@ const AdminDashboard: React.FC = () => {
                       </div>
                       {r.rating > 0 && (
                         <div className="flex items-center gap-1">
-                          <Star className="w-3.5 h-3.5 text-[#F4A012]" fill="#F4A012" />
+                          <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
                           <span className="text-xs font-bold text-neutral-700">{r.rating}</span>
                         </div>
                       )}
@@ -184,9 +206,9 @@ const AdminDashboard: React.FC = () => {
                     {r.status === 'pending' ? (
                       <button
                         onClick={() => validatePending(r.id)}
-                        className="flex-1 bg-[#0F766E] text-white font-bold text-xs py-2.5 rounded-xl flex items-center justify-center gap-1.5"
+                        className="flex-1 bg-[#87C025] text-white font-extrabold text-xs py-3 rounded-xl flex items-center justify-center gap-1.5 shadow-lg shadow-[#87C025]/30 active:scale-95 transition-transform"
                       >
-                        <CheckCircle className="w-3.5 h-3.5" />
+                        <ShieldCheck className="w-4 h-4" />
                         Valider l'inscription
                       </button>
                     ) : (
@@ -199,13 +221,14 @@ const AdminDashboard: React.FC = () => {
                         }`}
                       >
                         {r.status === 'active'
-                          ? <><Ban className="w-3.5 h-3.5" /> Suspendre</>
-                          : <><RefreshCw className="w-3.5 h-3.5" /> Réactiver</>
+                          ? <> Suspendre</>
+                          : <> Réactiver</>
                         }
                       </button>
                     )}
-                    <button className="px-4 py-2.5 bg-neutral-100 text-neutral-600 font-bold text-xs rounded-xl flex items-center gap-1">
-                      Détails <ChevronRight className="w-3.5 h-3.5" />
+                    <button className="px-4 py-2.5 bg-neutral-100 text-neutral-600 font-extrabold text-[10px] uppercase tracking-widest rounded-xl flex items-center gap-1 active:scale-95 transition-transform">
+                      Détails 
+                      <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
@@ -220,15 +243,15 @@ const AdminDashboard: React.FC = () => {
           {/* Commission card */}
           <div className="bg-white rounded-2xl p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
-              <BarChart3 className="w-4 h-4 text-[#0F766E]" />
-              <h4 className="font-bold text-sm">Revenus & Commissions</h4>
+              <BarChart3 className="w-4 h-4 text-[#FF4B11]" />
+              <h4 className="font-extrabold text-sm text-neutral-900 uppercase tracking-tight">Revenus & Commissions</h4>
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { label: 'Revenus du jour', value: formatPrice(ADMIN_STATS.revenueToday), color: '#0F766E' },
-                { label: 'Commission (8%)', value: formatPrice(ADMIN_STATS.commissionToday), color: '#7C3AED' },
-                { label: 'Revenus du mois', value: formatPrice(ADMIN_STATS.revenueMonth), color: '#0F766E' },
-                { label: 'Commission mois', value: formatPrice(ADMIN_STATS.commissionMonth), color: '#7C3AED' },
+                { label: 'Revenus du jour', value: formatPrice(ADMIN_STATS.revenueToday), color: '#FF4B11' },
+                { label: 'Commission (8%)', value: formatPrice(ADMIN_STATS.commissionToday), color: '#87C025' },
+                { label: 'Revenus du mois', value: formatPrice(ADMIN_STATS.revenueMonth), color: '#FF4B11' },
+                { label: 'Commission mois', value: formatPrice(ADMIN_STATS.commissionMonth), color: '#87C025' },
               ].map((s, i) => (
                 <div key={i} className="bg-neutral-50 rounded-xl p-3">
                   <p className="text-xs text-neutral-500 mb-1">{s.label}</p>
@@ -241,8 +264,8 @@ const AdminDashboard: React.FC = () => {
           {/* Platform stats */}
           <div className="bg-white rounded-2xl p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
-              <Users className="w-4 h-4 text-[#0F766E]" />
-              <h4 className="font-bold text-sm">Plateforme</h4>
+              <Activity className="w-4 h-4 text-[#87C025]" />
+              <h4 className="font-extrabold text-sm text-neutral-900 uppercase tracking-tight">Plateforme</h4>
             </div>
             <div className="space-y-3">
               {[
@@ -255,7 +278,7 @@ const AdminDashboard: React.FC = () => {
               ].map((s, i) => (
                 <div key={i} className="flex items-center justify-between py-2 border-b border-neutral-100 last:border-0">
                   <span className="text-sm text-neutral-600">{s.label}</span>
-                  <span className={`font-extrabold text-sm ${s.warn ? 'text-[#F4A012]' : 'text-neutral-900'}`}>
+                  <span className={`font-extrabold text-sm ${s.warn ? 'text-[#FF4B11]' : 'text-neutral-900'}`}>
                     {s.value}
                   </span>
                 </div>
@@ -273,12 +296,20 @@ const AdminDashboard: React.FC = () => {
                 { label: '📊 Exporter les rapports', desc: 'CSV, Excel, PDF' },
                 { label: '⚙️ Gérer les villes actives', desc: 'Ajouter / retirer des zones' },
               ].map((a, i) => (
-                <button key={i} className="w-full flex items-center justify-between py-3 px-3 rounded-xl hover:bg-neutral-50 active:bg-neutral-100 transition-colors text-left">
-                  <div>
-                    <p className="text-sm font-bold text-neutral-900">{a.label}</p>
-                    <p className="text-xs text-neutral-500">{a.desc}</p>
+                <button key={i} className="w-full flex items-center justify-between py-3.5 px-4 rounded-2xl hover:bg-neutral-50 active:bg-neutral-100 transition-colors text-left border border-neutral-50 group">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center group-hover:bg-white transition-colors">
+                      {i === 0 && <Megaphone className="w-5 h-5 text-neutral-600" />}
+                      {i === 1 && <Gift className="w-5 h-5 text-neutral-600" />}
+                      {i === 2 && <Download className="w-5 h-5 text-neutral-600" />}
+                      {i === 3 && <MapPin className="w-5 h-5 text-neutral-600" />}
+                    </div>
+                    <div>
+                      <p className="text-sm font-extrabold text-neutral-900">{a.label}</p>
+                      <p className="text-[11px] text-neutral-400 font-medium">{a.desc}</p>
+                    </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-neutral-300" />
+                  <ChevronRight className="w-4 h-4 text-neutral-300 group-hover:text-[#FF4B11] transition-colors" />
                 </button>
               ))}
             </div>
@@ -292,3 +323,8 @@ const AdminDashboard: React.FC = () => {
 };
 
 export default AdminDashboard;
+
+
+
+
+

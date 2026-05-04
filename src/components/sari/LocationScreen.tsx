@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
-import { ArrowLeft, MapPin, Navigation, Search, Check } from 'lucide-react';
+
 import { useAppContext } from '@/contexts/AppContext';
 import { CITIES } from '@/data/sariData';
 import ProgressSteps from './ProgressSteps';
+import { 
+  ArrowLeft, 
+  MapPin, 
+  Search, 
+  Navigation, 
+  Map as MapIcon, 
+  Check, 
+  ChevronRight,
+  Navigation2
+} from 'lucide-react';
 
 const LocationScreen: React.FC = () => {
   const { setScreen, setLocation } = useAppContext();
@@ -33,13 +43,13 @@ const LocationScreen: React.FC = () => {
         <div className="px-5 py-4 flex items-center gap-3">
           <button
             onClick={() => setScreen('onboarding')}
-            className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-95"
+            className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-90 transition-transform"
           >
-            <ArrowLeft className="w-5 h-5 text-neutral-700" />
+            <ArrowLeft className="w-5 h-5 text-neutral-600" />
           </button>
           <div>
-            <h1 className="text-lg font-bold text-neutral-900">Où êtes-vous ?</h1>
-            <p className="text-xs text-neutral-500">Choisissez votre zone de livraison</p>
+            <h1 className="text-lg font-extrabold text-neutral-900 uppercase tracking-tight leading-none">Où êtes-vous ?</h1>
+            <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mt-1">Choisissez votre zone de livraison</p>
           </div>
         </div>
         <ProgressSteps current={1} />
@@ -56,24 +66,24 @@ const LocationScreen: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <div className="relative">
-              <div className="w-12 h-12 rounded-full bg-[#C94A2A] flex items-center justify-center shadow-xl animate-pulse">
-                <MapPin className="w-6 h-6 text-white" fill="white" />
+              <div className="w-14 h-14 rounded-full bg-[#FF4B11] flex items-center justify-center shadow-2xl shadow-[#FF4B11]/50 animate-pulse border-4 border-white/20">
+                <MapPin className="w-7 h-7 text-white" />
               </div>
-              <div className="absolute inset-0 rounded-full bg-[#C94A2A]/30 animate-ping" />
+              <div className="absolute inset-0 rounded-full bg-[#FF4B11]/40 animate-ping" />
             </div>
           </div>
           <button
             onClick={handleGeoLocate}
-            className="absolute bottom-3 right-3 bg-white rounded-xl px-4 py-2.5 flex items-center gap-2 shadow-lg font-semibold text-sm active:scale-95"
+            className="absolute bottom-4 right-4 bg-white/95 backdrop-blur rounded-2xl px-5 py-3 flex items-center gap-2 shadow-xl font-extrabold text-xs uppercase tracking-widest text-neutral-900 active:scale-95 transition-transform border border-white/20"
           >
-            <Navigation className="w-4 h-4 text-[#C94A2A]" />
+            <Navigation2 className="w-4 h-4 text-[#FF4B11] fill-[#FF4B11]" />
             Me localiser
           </button>
         </div>
 
         {/* Search */}
-        <div className="bg-white rounded-2xl flex items-center px-4 h-12 shadow-sm">
-          <Search className="w-5 h-5 text-neutral-400" />
+        <div className="bg-white rounded-2xl flex items-center px-4 h-14 shadow-sm border border-neutral-100 group focus-within:border-[#FF4B11]/30 transition-all">
+          <Search className="w-5 h-5 text-neutral-400 group-focus-within:text-[#FF4B11] transition-colors" />
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
@@ -90,16 +100,23 @@ const LocationScreen: React.FC = () => {
               <button
                 key={c.name}
                 onClick={() => { setSelectedCity(c.name); setSelectedNeighborhood(''); }}
-                className={`p-4 rounded-2xl border-2 transition-all text-left active:scale-[0.97] ${
+                className={`p-5 rounded-3xl border-2 transition-all text-left active:scale-[0.97] flex flex-col gap-3 relative overflow-hidden group ${
                   selectedCity === c.name
-                    ? 'bg-[#C94A2A] border-[#C94A2A] text-white shadow-lg shadow-[#C94A2A]/25'
-                    : 'bg-white border-transparent text-neutral-900'
+                    ? 'bg-[#FF4B11] border-[#FF4B11] text-white shadow-xl shadow-[#FF4B11]/25'
+                    : 'bg-white border-transparent text-neutral-900 hover:border-neutral-200'
                 }`}
               >
-                <MapPin className={`w-5 h-5 mb-2 ${selectedCity === c.name ? 'text-white' : 'text-[#C94A2A]'}`} />
-                <div className="font-bold text-sm">{c.name}</div>
-                <div className={`text-[11px] mt-0.5 ${selectedCity === c.name ? 'text-white/80' : 'text-neutral-500'}`}>
-                  {c.neighborhoods.length} quartiers
+                {selectedCity === c.name && (
+                  <MapIcon className="absolute -right-4 -bottom-4 w-16 h-16 text-white/10" />
+                )}
+                <div className="w-10 h-10 rounded-2xl bg-neutral-100/50 flex items-center justify-center transition-colors group-hover:bg-neutral-100">
+                  <MapIcon className={`w-5 h-5 ${selectedCity === c.name ? 'text-white' : 'text-neutral-500'}`} />
+                </div>
+                <div>
+                  <div className="font-extrabold text-sm uppercase tracking-tight">{c.name}</div>
+                  <div className={`text-[10px] font-bold mt-0.5 uppercase tracking-tighter ${selectedCity === c.name ? 'text-white/60' : 'text-neutral-400'}`}>
+                    {c.neighborhoods.length} zones
+                  </div>
                 </div>
               </button>
             ))}
@@ -120,18 +137,18 @@ const LocationScreen: React.FC = () => {
                   } ${selectedNeighborhood === n ? 'bg-[#FDF6EC]' : 'active:bg-neutral-50'}`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${
-                      selectedNeighborhood === n ? 'bg-[#C94A2A]' : 'bg-neutral-100'
+                    <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all ${
+                      selectedNeighborhood === n ? 'bg-[#FF4B11] text-white shadow-lg shadow-[#FF4B11]/30' : 'bg-neutral-100 text-neutral-400'
                     }`}>
-                      <MapPin className={`w-4 h-4 ${selectedNeighborhood === n ? 'text-white' : 'text-neutral-500'}`} />
+                      <MapPin className="w-5 h-5" />
                     </div>
-                    <span className={`font-semibold text-sm ${selectedNeighborhood === n ? 'text-[#C94A2A]' : 'text-neutral-900'}`}>
+                    <span className={`font-extrabold text-sm ${selectedNeighborhood === n ? 'text-[#FF4B11]' : 'text-neutral-900'}`}>
                       {n}
                     </span>
                   </div>
                   {selectedNeighborhood === n && (
-                    <div className="w-6 h-6 rounded-full bg-[#C94A2A] flex items-center justify-center">
-                      <Check className="w-4 h-4 text-white" />
+                    <div className="w-6 h-6 rounded-full bg-[#FF4B11] flex items-center justify-center shadow-md shadow-[#FF4B11]/30">
+                      <Check className="text-white w-4 h-4 stroke-[3]" />
                     </div>
                   )}
                 </button>
@@ -149,19 +166,19 @@ const LocationScreen: React.FC = () => {
         <button
           onClick={handleConfirm}
           disabled={!selectedCity || !selectedNeighborhood}
-          className={`w-full font-bold py-4 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 active:scale-[0.98] ${
+          className={`w-full font-extrabold py-5 rounded-3xl shadow-xl transition-all flex items-center justify-center gap-2 active:scale-[0.98] uppercase tracking-widest text-sm ${
             selectedCity && selectedNeighborhood
-              ? 'bg-[#C94A2A] text-white shadow-[#C94A2A]/30'
+              ? 'bg-[#FF4B11] text-white shadow-[#FF4B11]/30'
               : 'bg-neutral-200 text-neutral-400 shadow-none cursor-not-allowed'
           }`}
         >
           {selectedCity && selectedNeighborhood ? (
             <>
-              Voir les restaurants
-              <span className="opacity-80 font-medium text-sm">· {selectedNeighborhood}</span>
+              Continuer
+              <span className="opacity-60 font-medium normal-case tracking-normal">· {selectedNeighborhood}</span>
             </>
           ) : (
-            'Choisissez votre zone'
+            'Sélectionnez votre zone'
           )}
         </button>
       </div>
@@ -177,3 +194,8 @@ const LocationScreen: React.FC = () => {
 };
 
 export default LocationScreen;
+
+
+
+
+

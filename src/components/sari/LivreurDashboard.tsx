@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
-import {
-  MapPin, Phone, CheckCircle, Navigation, Truck, LogOut,
-  Moon, Sun, Camera, FileText, TrendingUp, DollarSign,
-  BarChart3, Star
-} from 'lucide-react';
+
 import { useAppContext } from '@/contexts/AppContext';
 import { BRANCH_ORDERS } from '@/data/managerData';
 import { formatPrice } from '@/data/sariData';
+import { 
+  LogOut, 
+  Moon, 
+  Sun, 
+  Bike, 
+  ShoppingBag, 
+  TrendingUp, 
+  Calendar, 
+  Phone, 
+  MessageCircle, 
+  MapPin, 
+  CheckCircle, 
+  Camera, 
+  ChevronRight,
+  DollarSign,
+  User,
+  Power
+} from 'lucide-react';
 
 const RATE_PER_DELIVERY = 500; // FCFA
 
@@ -61,25 +75,28 @@ const LivreurDashboard: React.FC = () => {
   return (
     <div className={`min-h-screen ${bg} pb-24 transition-colors duration-300`}>
       {/* Header */}
-      <div className={`${darkMode ? 'bg-[#1E40AF]' : 'bg-[#2563EB]'} px-5 pt-12 pb-6 rounded-b-3xl shadow-md relative overflow-hidden transition-colors duration-300`}>
-        <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-white/10" />
-        <div className="flex items-center justify-between mb-6 relative">
+      <div className={`${darkMode ? 'bg-slate-900' : 'bg-[#FF4B11]'} px-5 pt-12 pb-10 rounded-b-[40px] shadow-lg relative overflow-hidden transition-colors duration-500`}>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20" />
+        <div className="absolute bottom-0 left-0 w-40 h-40 bg-black/5 rounded-full blur-2xl -ml-10 -mb-10" />
+        
+        <div className="flex items-center justify-between mb-8 relative z-10">
           <div>
-            <h1 className="text-xl font-extrabold text-white">Espace Livreur</h1>
-            <p className="text-white/80 text-sm">Zone: Thiès &amp; Environs</p>
+            <div className="flex items-center gap-2 mb-1">
+              <Bike className="w-5 h-5 text-white/60" />
+              <p className="text-white/60 text-[10px] font-black uppercase tracking-[0.2em]">Espace Livreur</p>
+            </div>
+            <h1 className="text-2xl font-black text-white leading-none">Thiès Zone</h1>
           </div>
-          <div className="flex gap-2">
-            {/* Dark mode toggle */}
+          <div className="flex gap-3">
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white active:scale-90 transition-transform"
-              title={darkMode ? 'Mode clair' : 'Mode sombre'}
+              className="w-11 h-11 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white active:scale-90 transition-all border border-white/10 hover:bg-white/20"
             >
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
             <button
               onClick={() => { setIsAuthenticated(false); setScreen('role-select'); }}
-              className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white"
+              className="w-11 h-11 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white active:scale-90 transition-all border border-white/10 hover:bg-white/20"
             >
               <LogOut className="w-5 h-5" />
             </button>
@@ -87,112 +104,142 @@ const LivreurDashboard: React.FC = () => {
         </div>
 
         {/* Online toggle */}
-        <div className={`${darkMode ? 'bg-slate-800' : 'bg-white'} rounded-2xl p-4 flex items-center justify-between shadow-sm`}>
-          <div className="flex items-center gap-3">
-            <div className={`w-3 h-3 rounded-full animate-pulse ${isOnline ? 'bg-[#16A34A]' : 'bg-neutral-300'}`} />
+        <div className={`${darkMode ? 'bg-slate-800/80' : 'bg-white/10'} backdrop-blur-xl rounded-[28px] p-5 flex items-center justify-between border border-white/10 relative z-10`}>
+          <div className="flex items-center gap-4">
+            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all ${isOnline ? 'bg-[#87C025] shadow-lg shadow-[#87C025]/30' : 'bg-white/10'}`}>
+              <Power className={`w-6 h-6 text-white ${isOnline ? 'animate-pulse' : 'opacity-40'}`} />
+            </div>
             <div>
-              <p className={`font-bold ${text}`}>{isOnline ? 'En ligne' : 'Hors ligne'}</p>
-              <p className={`text-xs ${muted}`}>{isOnline ? 'Prêt pour la livraison' : 'Vous ne recevez pas de courses'}</p>
+              <p className="font-black text-white text-base leading-tight">{isOnline ? 'Vous êtes en ligne' : 'Vous êtes hors ligne'}</p>
+              <p className="text-[11px] font-bold text-white/50 mt-1">{isOnline ? 'Prêt pour la prochaine course' : 'Activez pour recevoir des livraisons'}</p>
             </div>
           </div>
           <button
             onClick={() => setIsOnline(!isOnline)}
-            className={`w-14 h-8 rounded-full flex items-center p-1 transition-colors ${isOnline ? 'bg-[#16A34A]' : 'bg-neutral-300'}`}
+            className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all shadow-inner ${isOnline ? 'bg-[#87C025]' : 'bg-white/20'}`}
           >
-            <div className={`w-6 h-6 bg-white rounded-full shadow-md transition-transform ${isOnline ? 'translate-x-6' : 'translate-x-0'}`} />
+            <div className={`w-6 h-6 bg-white rounded-full shadow-xl transition-transform duration-300 ${isOnline ? 'translate-x-7' : 'translate-x-0'}`} />
           </button>
         </div>
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-3 gap-3 px-5 mt-6">
+      <div className="grid grid-cols-3 gap-4 px-5 mt-8">
         {[
-          { label: "Aujourd'hui", value: deliveredToday, color: 'text-[#2563EB]' },
-          { label: 'Cette semaine', value: weekCount, color: 'text-[#16A34A]' },
-          { label: 'Ce mois', value: 180, color: 'text-[#7C3AED]' },
+          { label: "Aujourd'hui", value: deliveredToday, color: '#FF4B11', icon: ShoppingBag },
+          { label: 'Semaine', value: weekCount, color: '#87C025', icon: TrendingUp },
+          { label: 'Mois', value: 180, color: '#3B82F6', icon: Calendar },
         ].map((s, i) => (
-          <div key={i} className={`${card} rounded-2xl p-3 shadow-sm border ${border} flex flex-col items-center transition-colors`}>
-            <span className={`text-xs ${muted} font-bold mb-1`}>{s.label}</span>
-            <span className={`text-xl font-extrabold ${s.color}`}>{s.value}</span>
+          <div key={i} className={`${card} rounded-3xl p-4 shadow-sm border ${border} flex flex-col items-center transition-all hover:scale-105 active:scale-95`}>
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-2" style={{ backgroundColor: `${s.color}15` }}>
+              <s.icon className="w-4.5 h-4.5" style={{ color: s.color }} />
+            </div>
+            <span className={`text-[10px] ${muted} font-black uppercase tracking-wider mb-1`}>{s.label}</span>
+            <span className={`text-xl font-black ${text}`}>{s.value}</span>
           </div>
         ))}
       </div>
 
       {/* Tabs */}
-      <div className="px-5 mt-5 flex gap-3">
+      <div className={`mx-5 mt-8 p-1.5 rounded-[24px] ${darkMode ? 'bg-slate-800' : 'bg-neutral-100'} flex gap-1`}>
         <button
           onClick={() => setActiveTab('courses')}
-          className={`flex-1 py-3 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-2 ${
+          className={`flex-1 py-3.5 rounded-2xl font-black text-[11px] uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${
             activeTab === 'courses'
-              ? 'bg-[#2563EB] text-white shadow-lg shadow-[#2563EB]/30'
-              : `${card} ${muted}`
+              ? 'bg-white shadow-md text-[#FF4B11]'
+              : `${muted} hover:text-neutral-900`
           }`}
         >
-          <Truck className="w-4 h-4" />
-          Courses
+          <Bike className="w-4 h-4" />
+          Missions
         </button>
         <button
           onClick={() => setActiveTab('gains')}
-          className={`flex-1 py-3 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-2 ${
+          className={`flex-1 py-3.5 rounded-2xl font-black text-[11px] uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${
             activeTab === 'gains'
-              ? 'bg-[#16A34A] text-white shadow-lg shadow-[#16A34A]/30'
-              : `${card} ${muted}`
+              ? 'bg-white shadow-md text-[#87C025]'
+              : `${muted} hover:text-neutral-900`
           }`}
         >
-          <TrendingUp className="w-4 h-4" />
-          Mes Gains
+          <DollarSign className="w-4 h-4" />
+          Revenus
         </button>
       </div>
 
       {/* ── GAINS TAB ───────────────────────────── */}
       {activeTab === 'gains' && (
-        <div className="px-5 mt-5 space-y-4">
-          {/* Summary cards */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className={`${card} rounded-2xl p-4 shadow-sm border ${border}`}>
-              <DollarSign className="w-5 h-5 text-[#16A34A] mb-2" />
-              <p className={`text-xl font-extrabold text-[#16A34A]`}>{formatPrice(todayEarnings)}</p>
-              <p className={`text-xs ${muted} mt-1`}>Gains aujourd'hui</p>
+        <div className="px-5 mt-8 space-y-6 animate-fade-in">
+          {/* Summary cards with glass effect */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className={`${card} rounded-[32px] p-5 shadow-sm border ${border} relative overflow-hidden group`}>
+              <div className="absolute -right-2 -top-2 w-12 h-12 bg-[#87C025]/10 rounded-full blur-xl group-hover:bg-[#87C025]/20 transition-colors" />
+              <div className="w-10 h-10 rounded-xl bg-[#87C025]/10 flex items-center justify-center mb-3">
+                <TrendingUp className="w-5 h-5 text-[#87C025]" />
+              </div>
+              <p className={`text-xl font-black ${text}`}>{formatPrice(todayEarnings)}</p>
+              <p className={`text-[10px] font-black uppercase tracking-widest ${muted} mt-1`}>Aujourd'hui</p>
             </div>
-            <div className={`${card} rounded-2xl p-4 shadow-sm border ${border}`}>
-              <TrendingUp className="w-5 h-5 text-[#2563EB] mb-2" />
-              <p className={`text-xl font-extrabold text-[#2563EB]`}>{formatPrice(weekEarnings)}</p>
-              <p className={`text-xs ${muted} mt-1`}>Gains semaine</p>
-            </div>
-          </div>
-
-          {/* Rate info */}
-          <div className={`${card} rounded-2xl p-4 shadow-sm border ${border} flex items-center gap-3`}>
-            <div className="w-10 h-10 rounded-xl bg-[#F0FDF4] flex items-center justify-center">
-              <Star className="w-5 h-5 text-[#16A34A]" />
-            </div>
-            <div>
-              <p className={`font-bold text-sm ${text}`}>Tarif : {formatPrice(RATE_PER_DELIVERY)} / course</p>
-              <p className={`text-xs ${muted}`}>{deliveredToday} livraison{deliveredToday > 1 ? 's' : ''} validée{deliveredToday > 1 ? 's' : ''} aujourd'hui</p>
+            <div className={`${card} rounded-[32px] p-5 shadow-sm border ${border} relative overflow-hidden group`}>
+              <div className="absolute -right-2 -top-2 w-12 h-12 bg-[#FF4B11]/10 rounded-full blur-xl group-hover:bg-[#FF4B11]/20 transition-colors" />
+              <div className="w-10 h-10 rounded-xl bg-[#FF4B11]/10 flex items-center justify-center mb-3">
+                <DollarSign className="w-5 h-5 text-[#FF4B11]" />
+              </div>
+              <p className={`text-xl font-black ${text}`}>{formatPrice(weekEarnings)}</p>
+              <p className={`text-[10px] font-black uppercase tracking-widest ${muted} mt-1`}>Cette semaine</p>
             </div>
           </div>
 
-          {/* Weekly bar chart */}
-          <div className={`${card} rounded-2xl p-4 shadow-sm border ${border}`}>
-            <div className="flex items-center gap-2 mb-4">
-              <BarChart3 className="w-4 h-4 text-[#2563EB]" />
-              <h4 className={`font-bold text-sm ${text}`}>Livraisons par jour</h4>
+          {/* Rate info card */}
+          <div className={`${darkMode ? 'bg-slate-800' : 'bg-white'} rounded-[32px] p-5 shadow-sm border ${border} flex items-center gap-4`}>
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#87C025] to-[#76a820] flex items-center justify-center shadow-lg shadow-[#87C025]/20">
+              <Bike className="w-7 h-7 text-white" />
             </div>
-            <div className="flex items-end gap-1.5 h-24">
+            <div className="flex-1">
+              <p className={`text-base font-black ${text} leading-tight`}>Tarif : {formatPrice(RATE_PER_DELIVERY)} / course</p>
+              <div className="flex items-center gap-2 mt-1">
+                <div className={`w-1.5 h-1.5 rounded-full ${deliveredToday > 0 ? 'bg-[#87C025]' : 'bg-neutral-300'}`} />
+                <p className={`text-xs font-bold ${muted}`}>{deliveredToday} course{deliveredToday > 1 ? 's' : ''} validée{deliveredToday > 1 ? 's' : ''} aujourd'hui</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Weekly bar chart redesigned */}
+          <div className={`${card} rounded-[32px] p-6 shadow-sm border ${border}`}>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-neutral-50 flex items-center justify-center border border-neutral-100">
+                  <Calendar className="w-4 h-4 text-neutral-400" />
+                </div>
+                <h4 className={`font-black text-sm uppercase tracking-widest ${text}`}>Activité hebdomadaire</h4>
+              </div>
+              <div className="px-3 py-1 bg-neutral-100 rounded-lg">
+                <span className="text-[10px] font-black text-neutral-500 uppercase">Livraisons</span>
+              </div>
+            </div>
+            
+            <div className="flex items-end gap-3 h-32 px-2">
               {EARNINGS_DATA.map((d, i) => {
                 const max = Math.max(...EARNINGS_DATA.map(x => x.count));
-                const isToday = i === 5; // Saturday = "today" in demo
+                const isToday = i === 5; // Samedi dans la démo
                 return (
-                  <div key={d.day} className="flex-1 flex flex-col items-center gap-1">
-                    <div
-                      className="w-full rounded-t-lg transition-all duration-500"
-                      style={{
-                        height: `${(d.count / max) * 100}%`,
-                        backgroundColor: isToday ? '#16A34A' : (darkMode ? '#334155' : '#BFDBFE'),
-                      }}
-                    />
-                    <span className={`text-[9px] font-bold ${isToday ? 'text-[#16A34A]' : muted}`}>{d.day}</span>
-                    <span className={`text-[9px] ${muted}`}>{d.count}</span>
+                  <div key={d.day} className="flex-1 flex flex-col items-center gap-3 group">
+                    <div className="relative w-full flex flex-col items-center">
+                      {/* Tooltip on hover */}
+                      <div className="absolute -top-8 bg-neutral-900 text-white text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        {d.count}
+                      </div>
+                      <div
+                        className={`w-full rounded-full transition-all duration-700 delay-${i * 100} ease-out cursor-pointer hover:brightness-110 shadow-sm`}
+                        style={{
+                          height: `${(d.count / max) * 100}%`,
+                          backgroundColor: isToday ? '#87C025' : (darkMode ? '#334155' : '#F1F5F9'),
+                          boxShadow: isToday ? '0 4px 12px rgba(135, 192, 37, 0.3)' : 'none'
+                        }}
+                      />
+                    </div>
+                    <div className="flex flex-col items-center gap-0.5">
+                      <span className={`text-[10px] font-black uppercase tracking-tighter ${isToday ? 'text-[#87C025]' : muted}`}>{d.day}</span>
+                    </div>
                   </div>
                 );
               })}
@@ -207,82 +254,106 @@ const LivreurDashboard: React.FC = () => {
           <h2 className={`font-extrabold ${text}`}>Courses actuelles</h2>
           {orders.length === 0 ? (
             <div className="text-center py-10">
-              <Truck className={`w-16 h-16 ${muted} mx-auto mb-3`} />
               <h2 className={`${muted} font-bold`}>Aucune course pour le moment</h2>
             </div>
           ) : (
             orders.map(order => {
               if (order.status === 'delivered') {
                 return (
-                  <div key={order.id} className={`${darkMode ? 'bg-[#14532D]/40 border-[#16A34A]/30' : 'bg-[#F0FDF4] border-green-200'} rounded-2xl p-4 shadow-sm border opacity-80`}>
+                  <div key={order.id} className={`${darkMode ? 'bg-[#2B4D00]/40 border-[#87C025]/30' : 'bg-[#FDF6EC] border-green-200'} rounded-3xl p-5 shadow-sm border opacity-80 group`}>
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle className="w-5 h-5 text-green-600" />
-                        <p className={`font-extrabold ${darkMode ? 'text-green-400' : 'text-green-800'}`}>Livraison effectuée</p>
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-[#87C025] flex items-center justify-center text-white">
+                          <CheckCircle className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <p className={`font-black text-sm ${darkMode ? 'text-green-400' : 'text-green-800'} uppercase tracking-tight`}>Livraison effectuée</p>
+                          <p className={`text-[10px] font-bold ${muted} mt-0.5`}>{order.clientName} · #{order.id.slice(-6)}</p>
+                        </div>
                       </div>
-                      <span className={`font-bold ${darkMode ? 'text-green-400' : 'text-green-700'}`}>{formatPrice(order.total)}</span>
+                      <span className={`font-black text-base ${darkMode ? 'text-green-400' : 'text-green-700'}`}>{formatPrice(order.total)}</span>
                     </div>
-                    <p className={`text-xs ${darkMode ? 'text-green-500' : 'text-green-600'} mt-2 font-medium`}>
-                      {order.clientName} · #{order.id}
-                      {proofConfirmed.includes(order.id) ? ' · 📸 Preuve enregistrée' : ''}
-                    </p>
                   </div>
                 );
               }
 
               return (
-                <div key={order.id} className={`${card} rounded-2xl shadow-sm border-2 ${border} overflow-hidden transition-colors`}>
-                  <div className={`p-4 border-b ${border}`}>
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <span className={`text-xs font-bold px-2 py-1 rounded-md ${
+                <div key={order.id} className={`${card} rounded-[32px] shadow-sm border-2 ${border} overflow-hidden transition-all group`}>
+                  <div className="p-5">
+                    {/* ID & Payment Status */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                        <div className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-widest ${
                           order.status === 'delivering'
-                            ? (darkMode ? 'bg-blue-900/40 text-blue-400' : 'bg-[#EFF6FF] text-[#2563EB]')
-                            : (darkMode ? 'bg-green-900/40 text-green-400' : 'bg-[#F0FDF4] text-[#16A34A]')
+                            ? (darkMode ? 'bg-blue-900/40 text-blue-400' : 'bg-[#FF4B11]/5 text-[#FF4B11]')
+                            : (darkMode ? 'bg-green-900/40 text-green-400' : 'bg-[#87C025]/5 text-[#87C025]')
                         }`}>
-                          #{order.id}
-                        </span>
-                        <p className={`font-extrabold ${text} mt-2`}>{order.clientName}</p>
+                          #{order.id.slice(-6)}
+                        </div>
+                        {order.status === 'delivering' && (
+                          <span className="flex h-2 w-2 relative">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF4B11] opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF4B11]"></span>
+                          </span>
+                        )}
                       </div>
-                      <div className="text-right">
-                        <p className="font-bold text-[#C94A2A]">{formatPrice(order.total)}</p>
-                        <p className={`text-xs ${muted}`}>{order.paymentMethod === 'cash' ? 'À payer en espèces' : 'Déjà payé'}</p>
+                      <div className="flex flex-col items-end">
+                        <p className={`text-[10px] font-black uppercase tracking-widest ${order.paymentMethod === 'cash' ? 'text-[#FF4B11]' : 'text-[#87C025]'}`}>
+                          {order.paymentMethod === 'cash' ? 'À encaisser' : 'Payé'}
+                        </p>
+                        <p className="text-lg font-black text-neutral-900 leading-none mt-1">{formatPrice(order.total)}</p>
                       </div>
                     </div>
-                    <div className={`flex items-center gap-2 text-sm ${muted} mb-2`}>
-                      <MapPin className="w-4 h-4" />
-                      <span className="font-medium">{order.address}</span>
-                    </div>
-                  </div>
 
-                  <div className={`p-3 ${darkMode ? 'bg-slate-900/50' : 'bg-neutral-50'} flex gap-2`}>
-                    <a href={`tel:${order.clientPhone}`}
-                      className={`w-12 h-12 ${card} rounded-xl shadow-sm flex items-center justify-center border ${border}`}>
-                      <Phone className="w-5 h-5 text-[#16A34A]" />
-                    </a>
-                    <a
-                      href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(order.address + ', Mbour, Senegal')}`}
-                      target="_blank" rel="noopener noreferrer"
-                      className={`w-12 h-12 ${card} rounded-xl shadow-sm flex items-center justify-center border ${border}`}
-                    >
-                      <Navigation className="w-5 h-5 text-[#2563EB]" />
-                    </a>
-                    {order.status === 'ready' ? (
-                      <button
-                        onClick={() => handleUpdateStatus(order.id, 'delivering')}
-                        className="flex-1 bg-[#16A34A] text-white font-bold rounded-xl shadow-md active:scale-95 transition-transform"
+                    {/* Client Info */}
+                    <div className="flex items-center gap-4 mb-5">
+                      <div className="w-12 h-12 rounded-[18px] bg-neutral-100 flex items-center justify-center border border-neutral-100">
+                        <User className="w-6 h-6 text-neutral-400" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-base font-black ${text} leading-tight truncate`}>{order.clientName}</p>
+                        <div className="flex items-center gap-1.5 mt-1">
+                          <MapPin className="w-3.5 h-3.5 text-[#FF4B11]" />
+                          <p className={`text-xs font-bold ${muted} truncate`}>{order.address}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Quick Actions */}
+                    <div className="flex gap-2">
+                      <a href={`tel:${order.clientPhone}`}
+                        className={`w-12 h-12 ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-neutral-50 border-neutral-100'} rounded-2xl flex items-center justify-center border active:scale-90 transition-all hover:bg-neutral-100`}>
+                        <Phone className="w-5 h-5 text-neutral-500" />
+                      </a>
+                      <a href={`https://wa.me/${order.clientPhone.replace(/\s/g, '')}`} target="_blank" rel="noreferrer"
+                        className={`w-12 h-12 ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-neutral-50 border-neutral-100'} rounded-2xl flex items-center justify-center border active:scale-90 transition-all hover:bg-neutral-100`}>
+                        <MessageCircle className="w-5 h-5 text-neutral-500" />
+                      </a>
+                      <a
+                        href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(order.address + ', Mbour, Senegal')}`}
+                        target="_blank" rel="noopener noreferrer"
+                        className={`w-12 h-12 ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-neutral-50 border-neutral-100'} rounded-2xl flex items-center justify-center border active:scale-90 transition-all hover:bg-neutral-100`}
                       >
-                        Démarrer
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => handleUpdateStatus(order.id, 'delivered')}
-                        className="flex-1 bg-[#2563EB] text-white font-bold rounded-xl shadow-md active:scale-95 transition-transform flex items-center justify-center gap-2"
-                      >
-                        <CheckCircle className="w-5 h-5" />
-                        Terminée
-                      </button>
-                    )}
+                        <MapPin className="w-5 h-5 text-neutral-500" />
+                      </a>
+
+                      {order.status === 'ready' ? (
+                        <button
+                          onClick={() => handleUpdateStatus(order.id, 'delivering')}
+                          className="flex-1 bg-[#87C025] text-white font-black text-xs uppercase tracking-[0.1em] rounded-2xl shadow-lg shadow-[#87C025]/30 active:scale-[0.98] transition-all"
+                        >
+                          Démarrer
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleUpdateStatus(order.id, 'delivered')}
+                          className="flex-1 bg-[#FF4B11] text-white font-black text-xs uppercase tracking-[0.1em] rounded-2xl shadow-lg shadow-[#FF4B11]/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                        >
+                          <CheckCircle className="w-4 h-4" />
+                          Terminée
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
@@ -300,7 +371,7 @@ const LivreurDashboard: React.FC = () => {
 
             {/* Simulate camera */}
             <button className="w-full h-32 border-2 border-dashed border-neutral-300 rounded-2xl flex flex-col items-center justify-center gap-2 mb-4 active:bg-neutral-50">
-              <Camera className="w-8 h-8 text-neutral-300" />
+              
               <span className="text-xs text-neutral-400 font-medium">Prendre une photo du colis (optionnel)</span>
             </button>
 
@@ -310,7 +381,7 @@ const LivreurDashboard: React.FC = () => {
                 value={proofNote}
                 onChange={e => setProofNote(e.target.value)}
                 placeholder="ex: Déposé devant la porte, client absent..."
-                className="w-full bg-neutral-50 rounded-xl px-4 py-3 text-sm outline-none border border-neutral-200 focus:border-[#2563EB]"
+                className="w-full bg-neutral-50 rounded-xl px-4 py-3 text-sm outline-none border border-neutral-200 focus:border-[#FF4B11]"
               />
             </div>
 
@@ -323,7 +394,7 @@ const LivreurDashboard: React.FC = () => {
               </button>
               <button
                 onClick={() => confirmDelivery(showProof)}
-                className="flex-1 bg-[#2563EB] text-white font-bold py-3 rounded-xl shadow-lg shadow-[#2563EB]/30 active:scale-[0.98]"
+                className="flex-1 bg-[#FF4B11] text-white font-bold py-3 rounded-xl shadow-lg shadow-[#FF4B11]/30 active:scale-[0.98]"
               >
                 Valider la livraison
               </button>
@@ -338,3 +409,8 @@ const LivreurDashboard: React.FC = () => {
 };
 
 export default LivreurDashboard;
+
+
+
+
+

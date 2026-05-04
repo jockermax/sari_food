@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, Check, ChevronRight, RotateCcw, ShoppingBag } from 'lucide-react';
+
 import { useAppContext } from '@/contexts/AppContext';
 import { formatPrice } from '@/data/sariData';
 
@@ -43,23 +43,23 @@ const OrdersScreen: React.FC = () => {
             <h3 className="text-xs font-extrabold text-neutral-500 uppercase tracking-wider mb-3">En cours</h3>
             <button
               onClick={() => setScreen('tracking')}
-              className="w-full bg-white rounded-2xl p-4 shadow-sm border-2 border-[#C94A2A] active:scale-[0.99] text-left"
+              className="w-full bg-white rounded-2xl p-4 shadow-sm border-2 border-[#FF4B11] active:scale-[0.99] text-left"
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#C94A2A] animate-pulse" />
-                  <span className="text-xs font-bold text-[#C94A2A] uppercase">Livraison en cours</span>
+                  <span className="w-2 h-2 rounded-full bg-[#FF4B11] animate-pulse" />
+                  <span className="text-xs font-bold text-[#FF4B11] uppercase">Livraison en cours</span>
                 </div>
-                <ChevronRight className="w-5 h-5 text-neutral-400" />
+                
               </div>
               <p className="font-bold text-neutral-900">{currentOrder.restaurant?.name}</p>
               <p className="text-xs text-neutral-500 mt-0.5">#{currentOrder.id} · {currentOrder.items?.length || 0} article(s)</p>
               <div className="flex items-center justify-between mt-3">
                 <div className="flex items-center gap-1 text-xs text-neutral-600">
-                  <Clock className="w-3.5 h-3.5" />
+                  
                   <span className="font-semibold">Livraison ~25 min</span>
                 </div>
-                <span className="font-extrabold text-[#C94A2A]">{formatPrice(currentOrder.total)}</span>
+                <span className="font-extrabold text-[#FF4B11]">{formatPrice(currentOrder.total)}</span>
               </div>
             </button>
           </div>
@@ -76,9 +76,9 @@ const OrdersScreen: React.FC = () => {
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
-                      <Check className="w-3 h-3 text-green-600" />
+                      
                     </div>
-                    <span className="text-xs font-bold text-green-600 uppercase">Livrée</span>
+                    <span className="text-xs font-bold text-[#87C025] uppercase">Livrée</span>
                   </div>
                   <span className="text-xs text-neutral-400">{o.date}</span>
                 </div>
@@ -86,7 +86,7 @@ const OrdersScreen: React.FC = () => {
                 {/* Restaurant info */}
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-10 h-10 rounded-xl bg-[#FDF6EC] flex items-center justify-center flex-shrink-0">
-                    <ShoppingBag className="w-5 h-5 text-[#C94A2A]" />
+                    
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-extrabold text-neutral-900">{o.restaurant}</p>
@@ -100,10 +100,9 @@ const OrdersScreen: React.FC = () => {
                   <span className="font-extrabold text-neutral-900">{formatPrice(o.total)}</span>
                   <button
                     onClick={() => handleReorder(o.restaurantId)}
-                    className="flex items-center gap-1.5 bg-[#C94A2A] text-white text-xs font-bold px-4 py-2 rounded-xl shadow-md shadow-[#C94A2A]/25 active:scale-95 transition-transform"
+                    className="flex items-center gap-1.5 bg-[#FF4B11] text-white text-xs font-bold px-4 py-2 rounded-xl shadow-md shadow-[#FF4B11]/25 active:scale-95 transition-transform"
                   >
-                    <RotateCcw className="w-3.5 h-3.5" />
-                    Re-commander
+                    RE-COMMANDER
                   </button>
                 </div>
               </div>
@@ -116,3 +115,8 @@ const OrdersScreen: React.FC = () => {
 };
 
 export default OrdersScreen;
+
+
+
+
+

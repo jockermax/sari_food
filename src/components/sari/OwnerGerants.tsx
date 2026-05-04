@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Plus, X, Users, ToggleLeft, ToggleRight, Phone } from 'lucide-react';
+
 import { useAppContext } from '@/contexts/AppContext';
 import { BRANCH_GERANTS, Gerant } from '@/data/managerData';
+import { ArrowLeft, Plus, User, Phone, X, UserPlus, Users } from 'lucide-react';
 
 const OwnerGerants: React.FC = () => {
   const { setScreen, activeBranchId } = useAppContext();
@@ -40,9 +41,9 @@ const OwnerGerants: React.FC = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setScreen('owner-branch')}
-              className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-95"
+              className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-95 transition-transform"
             >
-              <ArrowLeft className="w-5 h-5 text-neutral-700" />
+              <ArrowLeft className="w-5 h-5 text-neutral-600" />
             </button>
             <div>
               <h1 className="text-lg font-extrabold text-neutral-900">Gérants</h1>
@@ -51,9 +52,9 @@ const OwnerGerants: React.FC = () => {
           </div>
           <button 
             onClick={() => setShowAddModal(true)}
-            className="w-10 h-10 rounded-full bg-[#DC2626] flex items-center justify-center shadow-lg active:scale-95"
+            className="w-10 h-10 rounded-full bg-[#87C025] text-white flex items-center justify-center shadow-lg shadow-[#87C025]/30 active:scale-95 transition-transform"
           >
-            <Plus className="w-5 h-5 text-white" />
+            <Plus className="w-6 h-6" />
           </button>
         </div>
       </div>
@@ -61,30 +62,31 @@ const OwnerGerants: React.FC = () => {
       <div className="px-5 pt-5 space-y-3">
         {gerants.length === 0 && (
           <div className="text-center py-10 bg-white rounded-2xl shadow-sm">
-            <Users className="w-12 h-12 text-neutral-200 mx-auto mb-2" />
-            <p className="text-neutral-500 font-bold">Aucun gérant assigné</p>
+          <Users className="w-10 h-10 text-neutral-200 mx-auto mb-3" />
+          <p className="text-neutral-500 font-extrabold uppercase text-xs tracking-widest">Aucun gérant assigné</p>
+          <p className="text-[10px] text-neutral-400 mt-1">Ajoutez un gérant pour piloter ce local</p>
           </div>
         )}
         
         {gerants.map(g => (
           <div key={g.id} className="bg-white rounded-2xl p-4 shadow-sm flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${g.isActive ? 'bg-[#FEF2F2]' : 'bg-neutral-100'}`}>
-                <Users className={`w-6 h-6 ${g.isActive ? 'text-[#DC2626]' : 'text-neutral-400'}`} />
+              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors ${g.isActive ? 'bg-[#87C025]/10 text-[#87C025]' : 'bg-neutral-100 text-neutral-400'}`}>
+                <User className="w-6 h-6" />
               </div>
               <div>
                 <p className="font-extrabold text-neutral-900">{g.name}</p>
-                <div className="flex items-center gap-1 text-xs text-neutral-500 mt-0.5">
-                  <Phone className="w-3 h-3" /> {g.phone}
+                <div className="flex items-center gap-1.5 text-[11px] font-bold text-neutral-400 mt-1 uppercase tracking-tight">
+                   <Phone className="w-3 h-3" />
+                   {g.phone}
                 </div>
               </div>
             </div>
             
             <button onClick={() => toggleStatus(g.id)} className="active:scale-95 transition-transform">
-              {g.isActive 
-                ? <ToggleRight className="w-8 h-8 text-[#16A34A]" />
-                : <ToggleLeft className="w-8 h-8 text-neutral-300" />
-              }
+              <span className={`text-[10px] font-extrabold px-3 py-1.5 rounded-xl border ${g.isActive ? 'text-[#FF4B11] bg-[#FF4B11]/5 border-[#FF4B11]/10' : 'text-[#87C025] bg-[#87C025]/5 border-[#87C025]/10'}`}>
+                {g.isActive ? 'DÉSACTIVER' : 'ACTIVER'}
+              </span>
             </button>
           </div>
         ))}
@@ -95,8 +97,11 @@ const OwnerGerants: React.FC = () => {
           <div className="absolute inset-0 bg-black/60" onClick={() => setShowAddModal(false)} />
           <div className="relative w-full max-w-md bg-white rounded-t-3xl sm:rounded-3xl p-6 animate-slide-up">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-extrabold text-neutral-900">Nouveau gérant</h2>
-              <button onClick={() => setShowAddModal(false)} className="p-2 bg-neutral-100 rounded-full">
+              <div className="flex items-center gap-2">
+                <UserPlus className="w-5 h-5 text-[#87C025]" />
+                <h2 className="text-xl font-extrabold text-neutral-900">Nouveau gérant</h2>
+              </div>
+              <button onClick={() => setShowAddModal(false)} className="p-2 bg-neutral-100 rounded-full active:scale-90 transition-transform">
                 <X className="w-5 h-5 text-neutral-600" />
               </button>
             </div>
@@ -118,7 +123,7 @@ const OwnerGerants: React.FC = () => {
                   placeholder="77 123 45 67"
                 />
               </div>
-              <button type="submit" className="w-full bg-[#DC2626] text-white font-bold py-4 rounded-xl mt-4 shadow-lg active:scale-[0.98] transition-transform">
+              <button type="submit" className="w-full bg-[#87C025] text-white font-extrabold py-4 rounded-2xl mt-4 shadow-lg shadow-[#87C025]/30 active:scale-[0.98] transition-transform uppercase tracking-wider text-sm">
                 Ajouter ce gérant
               </button>
             </form>
@@ -134,3 +139,8 @@ const OwnerGerants: React.FC = () => {
 };
 
 export default OwnerGerants;
+
+
+
+
+

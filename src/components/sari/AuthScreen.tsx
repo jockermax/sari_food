@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowLeft, Phone } from 'lucide-react';
+
 import { useAppContext } from '@/contexts/AppContext';
 import { LOGO_URL } from '@/data/sariData';
 
@@ -48,7 +48,7 @@ const AuthScreen: React.FC = () => {
           onClick={() => step === 'otp' ? setStep('phone') : setScreen('onboarding')}
           className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center active:scale-95"
         >
-          <ArrowLeft className="w-5 h-5 text-neutral-700" />
+          
         </button>
       </div>
 
@@ -73,7 +73,7 @@ const AuthScreen: React.FC = () => {
                 <label className="text-sm font-semibold text-neutral-700 mb-2 block">
                   Numéro de téléphone
                 </label>
-                <div className="flex items-center bg-[#FDF6EC] rounded-2xl border-2 border-transparent focus-within:border-[#C94A2A] transition-all">
+                <div className="flex items-center bg-[#FDF6EC] rounded-2xl border-2 border-transparent focus-within:border-[#FF4B11] transition-all">
                   <div className="flex items-center gap-2 pl-4 pr-3 border-r border-neutral-200 h-14">
                     <span className="text-lg">🇸🇳</span>
                     <span className="text-neutral-700 font-medium">+221</span>
@@ -92,13 +92,13 @@ const AuthScreen: React.FC = () => {
               <button
                 type="submit"
                 disabled={localPhone.replace(/\s/g, '').length < 9}
-                className="w-full bg-[#C94A2A] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#C94A2A]/30 active:scale-[0.98] transition-all disabled:opacity-40 disabled:shadow-none"
+                className="w-full bg-[#FF4B11] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#FF4B11]/30 active:scale-[0.98] transition-all disabled:opacity-40 disabled:shadow-none"
               >
                 Recevoir le code
               </button>
 
               <p className="text-xs text-neutral-400 text-center leading-relaxed">
-                En continuant, vous acceptez les <span className="text-[#C94A2A] font-medium">Conditions d'utilisation</span> et la <span className="text-[#C94A2A] font-medium">Politique de confidentialité</span>.
+                En continuant, vous acceptez les <span className="text-[#FF4B11] font-medium">Conditions d'utilisation</span> et la <span className="text-[#FF4B11] font-medium">Politique de confidentialité</span>.
               </p>
             </form>
           </>
@@ -119,21 +119,21 @@ const AuthScreen: React.FC = () => {
                   value={d}
                   onChange={e => handleOtpChange(i, e.target.value)}
                   onKeyDown={e => handleKey(i, e)}
-                  className="w-16 h-16 text-center text-2xl font-bold bg-[#FDF6EC] rounded-2xl border-2 border-transparent focus:border-[#C94A2A] outline-none transition-all"
+                  className="w-16 h-16 text-center text-2xl font-bold bg-[#FDF6EC] rounded-2xl border-2 border-transparent focus:border-[#FF4B11] outline-none transition-all"
                 />
               ))}
             </div>
 
             <div className="text-center mb-6">
               <p className="text-sm text-neutral-500">
-                Code non reçu ? <button className="text-[#C94A2A] font-semibold">Renvoyer</button>
+                Code non reçu ? <button className="text-[#FF4B11] font-semibold">Renvoyer</button>
               </p>
               <p className="text-xs text-neutral-400 mt-2">Astuce : entrez n'importe quels 4 chiffres</p>
             </div>
 
             <button
               onClick={() => { setIsAuthenticated(true); setScreen('role-select'); }}
-              className="w-full bg-[#C94A2A] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#C94A2A]/30 active:scale-[0.98] transition-all"
+              className="w-full bg-[#FF4B11] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#FF4B11]/30 active:scale-[0.98] transition-all"
             >
               Vérifier
             </button>
@@ -145,3 +145,8 @@ const AuthScreen: React.FC = () => {
 };
 
 export default AuthScreen;
+
+
+
+
+

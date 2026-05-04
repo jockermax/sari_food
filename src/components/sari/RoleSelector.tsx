@@ -40,9 +40,9 @@ const RoleSelector: React.FC = () => {
         </div>
         <h1 className="text-2xl font-extrabold text-neutral-900 mb-1">SARI FOOD</h1>
         <p className="text-sm text-neutral-500">Sélectionnez votre espace de connexion</p>
-        <div className="mt-3 inline-flex items-center gap-2 bg-[#F4A012]/15 px-3 py-1.5 rounded-full">
-          <span className="w-2 h-2 rounded-full bg-[#F4A012]" />
-          <span className="text-xs font-bold text-[#C94A2A]">Mode démo — prototype</span>
+        <div className="mt-3 inline-flex items-center gap-2 bg-[#FF4B11]/15 px-3 py-1.5 rounded-full">
+          <span className="w-2 h-2 rounded-full bg-[#FF4B11]" />
+          <span className="text-xs font-bold text-[#FF4B11]">Mode démo — prototype</span>
         </div>
       </div>
 
@@ -53,17 +53,17 @@ const RoleSelector: React.FC = () => {
         <button
           onClick={handleClient}
           className="w-full rounded-3xl p-5 text-left active:scale-[0.98] transition-transform shadow-sm border-2 bg-[#FDF6EC]"
-          style={{ borderColor: '#C94A2A20' }}
+          style={{ borderColor: '#FF4B1120' }}
         >
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-sm flex-shrink-0 bg-[#C94A2A15]">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-sm flex-shrink-0 bg-[#FF4B11]15]">
               🛵
             </div>
             <div className="flex-1">
               <p className="font-extrabold text-lg text-neutral-900">Client</p>
               <p className="text-sm text-neutral-500 mt-0.5">Commander depuis mon fast food préféré</p>
             </div>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-[#C94A2A]">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-[#FF4B11]">
               <span className="text-white text-lg font-bold">›</span>
             </div>
           </div>
@@ -72,11 +72,11 @@ const RoleSelector: React.FC = () => {
         {/* Owner */}
         <button
           onClick={handleOwner}
-          className="w-full rounded-3xl p-5 text-left active:scale-[0.98] transition-transform shadow-sm border-2 bg-[#F5F3FF]"
-          style={{ borderColor: '#7C3AED20' }}
+          className="w-full rounded-3xl p-5 text-left active:scale-[0.98] transition-transform shadow-sm border-2 bg-[#FDF6EC]"
+          style={{ borderColor: '#87C02520' }}
         >
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-sm flex-shrink-0 bg-[#7C3AED15]">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-sm flex-shrink-0 bg-[#87C025]15]">
               🏪
             </div>
             <div className="flex-1">
@@ -85,14 +85,14 @@ const RoleSelector: React.FC = () => {
                 Gérer mes restaurants & créer de nouveaux locaux
               </p>
             </div>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-[#7C3AED]">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-[#87C025]">
               <span className="text-white text-lg font-bold">›</span>
             </div>
           </div>
           {/* Badge multi-branch */}
           <div className="mt-3 ml-20">
-            <span className="inline-flex items-center gap-1.5 bg-[#7C3AED]/10 px-3 py-1 rounded-full">
-              <span className="text-[10px] font-bold text-[#7C3AED]">✦ Multi-locaux · Toutes les villes</span>
+            <span className="inline-flex items-center gap-1.5 bg-[#87C025]/10 px-3 py-1 rounded-full">
+              <span className="text-[10px] font-bold text-[#87C025]">✦ Multi-locaux · Toutes les villes</span>
             </span>
           </div>
         </button>
@@ -100,11 +100,11 @@ const RoleSelector: React.FC = () => {
         {/* Gerant */}
         <button
           onClick={handleGerant}
-          className="w-full rounded-3xl p-5 text-left active:scale-[0.98] transition-transform shadow-sm border-2 bg-[#F0FDF4]"
-          style={{ borderColor: '#16A34A20' }}
+          className="w-full rounded-3xl p-5 text-left active:scale-[0.98] transition-transform shadow-sm border-2 bg-[#FDF6EC]"
+          style={{ borderColor: '#87C02520' }}
         >
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-sm flex-shrink-0 bg-[#16A34A15]">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-sm flex-shrink-0 bg-[#87C025]15]">
               👨‍🍳
             </div>
             <div className="flex-1">
@@ -113,14 +113,14 @@ const RoleSelector: React.FC = () => {
                 Gérer les commandes et le menu d'un local spécifique
               </p>
             </div>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-[#16A34A]">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-[#87C025]">
               <span className="text-white text-lg font-bold">›</span>
             </div>
           </div>
           {/* Badge local */}
           <div className="mt-3 ml-20">
-            <span className="inline-flex items-center gap-1.5 bg-[#16A34A]/10 px-3 py-1 rounded-full">
-              <span className="text-[10px] font-bold text-[#16A34A]">📍 Un seul local · Commandes en direct</span>
+            <span className="inline-flex items-center gap-1.5 bg-[#87C025]/10 px-3 py-1 rounded-full">
+              <span className="text-[10px] font-bold text-[#87C025]">📍 Un seul local · Commandes en direct</span>
             </span>
           </div>
         </button>
@@ -128,11 +128,11 @@ const RoleSelector: React.FC = () => {
         {/* Livreur */}
         <button
           onClick={handleLivreur}
-          className="w-full rounded-3xl p-5 text-left active:scale-[0.98] transition-transform shadow-sm border-2 bg-[#EFF6FF]"
-          style={{ borderColor: '#2563EB20' }}
+          className="w-full rounded-3xl p-5 text-left active:scale-[0.98] transition-transform shadow-sm border-2 bg-[#FDF6EC]"
+          style={{ borderColor: '#FF4B1120' }}
         >
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-sm flex-shrink-0 bg-[#2563EB15]">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-sm flex-shrink-0 bg-[#FF4B11]15]">
               🛵
             </div>
             <div className="flex-1">
@@ -141,14 +141,14 @@ const RoleSelector: React.FC = () => {
                 Prendre en charge les commandes et livrer les clients
               </p>
             </div>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-[#2563EB]">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-[#FF4B11]">
               <span className="text-white text-lg font-bold">›</span>
             </div>
           </div>
           {/* Badge livreur */}
           <div className="mt-3 ml-20">
-            <span className="inline-flex items-center gap-1.5 bg-[#2563EB]/10 px-3 py-1 rounded-full">
-              <span className="text-[10px] font-bold text-[#2563EB]">📦 Prise en charge · GPS & Maps</span>
+            <span className="inline-flex items-center gap-1.5 bg-[#FF4B11]/10 px-3 py-1 rounded-full">
+              <span className="text-[10px] font-bold text-[#FF4B11]">📦 Prise en charge · GPS & Maps</span>
             </span>
           </div>
         </button>
@@ -162,3 +162,8 @@ const RoleSelector: React.FC = () => {
 };
 
 export default RoleSelector;
+
+
+
+
+

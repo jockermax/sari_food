@@ -3,10 +3,10 @@ import { LOGO_URL } from '@/data/sariData';
 
 const SplashScreen: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#C94A2A] flex flex-col items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen bg-[#FF4B11] flex flex-col items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-40 h-40 rounded-full bg-white blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-60 h-60 rounded-full bg-[#F4A012] blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-60 h-60 rounded-full bg-[#FF4B11] blur-3xl" />
       </div>
       <div className="relative z-10 flex flex-col items-center animate-fade-in">
         <div className="w-32 h-32 rounded-full bg-white overflow-hidden shadow-2xl mb-6 animate-bounce-soft">
@@ -29,3 +29,8 @@ const SplashScreen: React.FC = () => {
 };
 
 export default SplashScreen;
+
+
+
+
+

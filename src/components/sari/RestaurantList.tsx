@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { MapPin, Star, Clock, Search, SlidersHorizontal, ChevronDown, Heart } from 'lucide-react';
 import { useAppContext } from '@/contexts/AppContext';
 import { RESTAURANTS, formatPrice } from '@/data/sariData';
 import BottomNav from './BottomNav';
@@ -55,32 +54,33 @@ const RestaurantList: React.FC = () => {
         <div className="px-5 pt-5 pb-3">
           <button
             onClick={() => setScreen('location')}
-            className="flex items-center gap-2 mb-3 active:scale-95"
+            className="w-full flex items-center justify-between mb-4 active:scale-[0.98] transition-transform"
           >
-            <div className="w-8 h-8 rounded-full bg-[#FDF6EC] flex items-center justify-center">
-              <MapPin className="w-4 h-4 text-[#C94A2A]" />
-            </div>
-            <div className="text-left">
-              <div className="text-[10px] text-neutral-500 font-medium uppercase tracking-wide">Livrer à</div>
-              <div className="flex items-center gap-1">
-                <span className="text-sm font-bold text-neutral-900">
-                  {location?.neighborhood || 'Choisir'}, {location?.city || 'une zone'}
-                </span>
-                <ChevronDown className="w-4 h-4 text-neutral-500" />
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-[#FDF6EC] flex items-center justify-center font-bold text-[#FF4B11] text-xs shadow-sm">
+                📍
               </div>
+              <div className="text-left">
+                <div className="text-[10px] text-neutral-500 font-bold uppercase tracking-wide">Livrer à</div>
+                <div className="text-sm font-extrabold text-neutral-900">
+                  {location?.neighborhood || 'Choisir'}, {location?.city || 'une zone'}
+                </div>
+              </div>
+            </div>
+            <div className="bg-[#FF4B11]/10 px-3 py-1.5 rounded-full border border-[#FF4B11]/20">
+               <span className="text-[10px] font-extrabold text-[#FF4B11]">MODIFIER</span>
             </div>
           </button>
 
           <div className="bg-[#FDF6EC] rounded-2xl flex items-center px-4 h-12">
-            <Search className="w-5 h-5 text-neutral-400" />
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Rechercher un restaurant ou un plat..."
               className="flex-1 bg-transparent outline-none px-3 text-sm"
             />
-            <button className="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
-              <SlidersHorizontal className="w-4 h-4 text-[#C94A2A]" />
+            <button className="px-3 py-1.5 rounded-lg bg-white text-[10px] font-bold text-[#FF4B11]">
+              FILTRES
             </button>
           </div>
         </div>
@@ -92,7 +92,7 @@ const RestaurantList: React.FC = () => {
               onClick={() => { setFilter(f); setIsLoading(true); setTimeout(() => setIsLoading(false), 600); }}
               className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
                 filter === f
-                  ? 'bg-[#C94A2A] text-white shadow-md shadow-[#C94A2A]/25'
+                  ? 'bg-[#FF4B11] text-white shadow-md shadow-[#FF4B11]/25'
                   : 'bg-[#FDF6EC] text-neutral-700'
               }`}
             >
@@ -166,17 +166,14 @@ const RestaurantList: React.FC = () => {
                         tabIndex={0}
                         onClick={(e) => { e.stopPropagation(); toggleFavorite(r.id); }}
                         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); toggleFavorite(r.id); } }}
-                        aria-label={fav ? 'Retirer des favoris' : 'Ajouter aux favoris'}
-                        className="w-9 h-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center shadow-md active:scale-90 transition-transform cursor-pointer"
+                        className="px-2.5 py-1.5 rounded-full bg-white/95 backdrop-blur flex items-center justify-center shadow-md active:scale-90 transition-transform cursor-pointer"
                       >
-                        <Heart
-                          className={`w-4 h-4 transition-colors ${fav ? 'text-[#C94A2A]' : 'text-neutral-700'}`}
-                          fill={fav ? '#C94A2A' : 'none'}
-                          strokeWidth={2.2}
-                        />
+                        <span className={`text-[10px] font-extrabold ${fav ? 'text-[#FF4B11]' : 'text-neutral-500'}`}>
+                          {fav ? 'FAVORI' : 'AJOUTER'}
+                        </span>
                       </div>
                       <div className="bg-white/95 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1">
-                        <Star className="w-3.5 h-3.5 text-[#F4A012]" fill="#F4A012" />
+                        <span className="text-[10px] font-bold text-[#FF4B11]">★</span>
                         <span className="text-xs font-bold">{r.rating}</span>
                       </div>
                     </div>
@@ -192,14 +189,12 @@ const RestaurantList: React.FC = () => {
                     <p className="text-xs text-neutral-500 mb-3">{r.cuisine}</p>
                     <div className="flex items-center gap-4 text-xs">
                       <div className="flex items-center gap-1 text-neutral-600">
-                        <Clock className="w-3.5 h-3.5" />
-                        <span className="font-semibold">{r.deliveryTime} min</span>
+                        <span className="font-bold">{r.deliveryTime} min</span>
                       </div>
                       <div className="flex items-center gap-1 text-neutral-600">
-                        <MapPin className="w-3.5 h-3.5" />
-                        <span className="font-semibold">{r.neighborhood}</span>
+                        <span className="font-bold">{r.neighborhood}</span>
                       </div>
-                      <div className="ml-auto text-[#C94A2A] font-bold">
+                      <div className="ml-auto text-[#FF4B11] font-bold">
                         {r.deliveryFee === 0 ? 'Livraison Offerte' : formatPrice(r.deliveryFee)}
                       </div>
                     </div>
@@ -225,3 +220,8 @@ const RestaurantList: React.FC = () => {
 };
 
 export default RestaurantList;
+
+
+
+
+
