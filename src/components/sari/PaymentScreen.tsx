@@ -181,22 +181,22 @@ const PaymentScreen: React.FC = () => {
       </div>
 
       <div className="flex-1" />
-      <div className="sticky bottom-0 bg-white/90 backdrop-blur-xl border-t border-neutral-100 px-6 py-6 z-20 max-w-md mx-auto">
+      <div className="sticky bottom-0 bg-white/90 backdrop-blur-xl border-t border-neutral-100 px-5 py-5 z-20">
         <button
           onClick={handlePay}
           disabled={processing || !phone || phone.length < 9}
-          className="w-full bg-[#FF4B11] text-white font-black h-16 rounded-[22px] shadow-2xl shadow-[#FF4B11]/40 active:scale-[0.98] disabled:opacity-50 transition-all flex items-center justify-center gap-4 uppercase tracking-[0.1em] text-[14px]"
+          className="w-full bg-[#FF4B11] text-white font-black py-5 rounded-[24px] shadow-xl shadow-[#FF4B11]/30 active:scale-[0.98] disabled:opacity-50 transition-all flex items-center justify-center gap-3 uppercase tracking-widest text-[13px]"
         >
           {processing ? (
             <>
-              <div className="w-6 h-6 border-[3px] border-white/30 border-t-white rounded-full animate-spin" />
-              <span className="ml-2">Validation...</span>
+              <div className="w-5 h-5 border-[3px] border-white/30 border-t-white rounded-full animate-spin" />
+              <span>Validation...</span>
             </>
           ) : (
             <>
               <span>Commander</span>
               <div className="w-1.5 h-1.5 rounded-full bg-white/30" />
-              <span className="opacity-90">{formatPrice(total)}</span>
+              <span>{formatPrice(total)}</span>
             </>
           )}
         </button>

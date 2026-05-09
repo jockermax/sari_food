@@ -184,17 +184,15 @@ const CartScreen: React.FC = () => {
       </div>
 
       <div className="flex-1" />
-      <div className="sticky bottom-0 bg-white/80 backdrop-blur-lg border-t border-neutral-100 px-5 py-6 z-20 max-w-md mx-auto">
+      <div className="sticky bottom-0 bg-white/80 backdrop-blur-lg border-t border-neutral-100 px-5 py-5 z-20">
         <button
           onClick={() => setScreen('payment')}
-          className="w-full bg-[#FF4B11] text-white font-black py-5 rounded-[24px] shadow-xl shadow-[#FF4B11]/30 active:scale-[0.98] transition-all flex items-center justify-center gap-3 px-7"
+          className="w-full bg-[#FF4B11] text-white font-black py-5 rounded-[24px] shadow-xl shadow-[#FF4B11]/30 active:scale-[0.98] transition-all flex items-center justify-center gap-3 uppercase tracking-widest text-[13px]"
         >
-          <span className="uppercase tracking-widest text-[12px]">Valider la commande</span>
+          <span>Valider la commande</span>
           <div className="w-1.5 h-1.5 rounded-full bg-white/30" />
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <span className="text-base font-black">{formatPrice(total)}</span>
-            <ChevronRight className="w-5 h-5" />
-          </div>
+          <span>{formatPrice(total)}</span>
+          <ChevronRight className="w-5 h-5" />
         </button>
       </div>
     </div>

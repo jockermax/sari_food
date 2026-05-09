@@ -453,19 +453,19 @@ const RestaurantDetail: React.FC = () => {
         <div className="h-24" />
       </div>
 
-      {/* ── Cart CTA — compact floating pill ── */}
+      {/* ── Cart CTA ── */}
       {cartCount > 0 && (
-        <div className="sticky bottom-4 z-30 flex justify-center px-5">
+        <div className="sticky bottom-4 z-30 px-5">
           <button
             onClick={() => setScreen('cart')}
-            className="flex items-center gap-3 bg-[#FF4B11] text-white font-black py-3.5 px-5 rounded-full shadow-2xl shadow-[#FF4B11]/40 active:scale-[0.96] transition-all"
+            className="w-full bg-[#FF4B11] text-white font-black py-5 rounded-[24px] shadow-xl shadow-[#FF4B11]/30 active:scale-[0.98] transition-all flex items-center justify-center gap-3 uppercase tracking-widest text-[13px]"
           >
-            <div className="bg-white/25 w-7 h-7 rounded-full flex items-center justify-center text-sm font-black">
+            <div className="bg-white/20 w-7 h-7 rounded-xl flex items-center justify-center text-sm font-black flex-shrink-0">
               {cartCount}
             </div>
-            <span className="text-sm tracking-wide">Panier</span>
-            <div className="w-px h-4 bg-white/30" />
-            <span className="text-sm font-black">{formatPrice(cartTotal)}</span>
+            <span>Voir le panier</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-white/30" />
+            <span>{formatPrice(cartTotal)}</span>
           </button>
         </div>
       )}
