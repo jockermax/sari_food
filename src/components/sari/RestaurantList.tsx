@@ -190,18 +190,18 @@ const RestaurantList: React.FC = () => {
         <div className="space-y-4">
           {isLoading ? (
             [1, 2, 3].map(i => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-neutral-100">
-                <div className="h-40 w-full bg-neutral-100 animate-pulse" />
-                <div className="p-4 space-y-4">
-                  <div className="flex justify-between items-start">
-                    <div className="h-5 bg-neutral-100 rounded-lg w-1/2 animate-pulse" />
-                    <div className="h-5 bg-neutral-100 rounded-lg w-12 animate-pulse" />
+              <div key={i} className="bg-white rounded-3xl overflow-hidden shadow-sm border border-neutral-100 mb-4">
+                <div className="h-44 w-full bg-neutral-100/80 animate-pulse" />
+                <div className="p-5 space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div className="h-5 bg-neutral-100 rounded-full w-2/3 animate-pulse" />
+                    <div className="h-5 bg-neutral-100 rounded-full w-12 animate-pulse" />
                   </div>
-                  <div className="h-3 bg-neutral-50 rounded-lg w-1/3 animate-pulse" />
-                  <div className="flex gap-4 pt-1">
-                    <div className="h-4 bg-neutral-50 rounded-lg w-16 animate-pulse" />
-                    <div className="h-4 bg-neutral-50 rounded-lg w-16 animate-pulse" />
-                    <div className="h-4 bg-neutral-50 rounded-lg w-16 ml-auto animate-pulse" />
+                  <div className="h-3 bg-neutral-100/60 rounded-full w-1/3 animate-pulse" />
+                  <div className="flex gap-4 pt-2">
+                    <div className="h-3 bg-neutral-100/60 rounded-full w-16 animate-pulse" />
+                    <div className="h-3 bg-neutral-100/60 rounded-full w-16 animate-pulse" />
+                    <div className="h-3 bg-neutral-100/60 rounded-full w-16 ml-auto animate-pulse" />
                   </div>
                 </div>
               </div>
