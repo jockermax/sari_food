@@ -18,6 +18,8 @@ export interface CartItem {
   image: string;
   quantity: number;
   restaurantId: string;
+  condiment?: string;
+  supplement?: string;
 }
 
 export interface Location {
@@ -50,7 +52,7 @@ interface AppContextType {
   activeBranchId: string | null;
   setActiveBranchId: (id: string | null) => void;
   cart: CartItem[];
-  addToCart: (item: Omit<CartItem, 'quantity'>) => void;
+  addToCart: (item: Omit<CartItem, 'quantity'>, qty?: number) => void;
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, qty: number) => void;
   clearCart: () => void;
@@ -104,7 +106,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   useEffect(() => {
     const t = setTimeout(() => {
-      if (screen === 'splash') setScreen('onboarding');
+      if (screen === 'splash') setScreen('role-select');
     }, 2000);
     return () => clearTimeout(t);
   }, [screen]);
@@ -115,13 +117,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     } catch {}
   }, [favorites]);
 
-  const addToCart = (item: Omit<CartItem, 'quantity'>) => {
+  const addToCart = (item: Omit<CartItem, 'quantity'>, qty: number = 1) => {
     setCart(prev => {
       const existing = prev.find(i => i.id === item.id);
       if (existing) {
-        return prev.map(i => i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i);
+        return prev.map(i => i.id === item.id ? { ...i, quantity: i.quantity + qty } : i);
       }
-      return [...prev, { ...item, quantity: 1 }];
+      return [...prev, { ...item, quantity: qty }];
     });
   };
 

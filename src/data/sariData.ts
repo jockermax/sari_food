@@ -127,19 +127,27 @@ export interface MenuItem {
   popular?: boolean;
 }
 
-export const MENU_CATEGORIES = ["Populaires", "Burgers", "Poulet", "Plats Sénégalais", "Boissons", "Desserts"];
+export const MENU_CATEGORIES = ["Populaires", "Burgers", "Pizzas", "Tacos", "Poulet", "Plats Sénégalais", "Boissons", "Desserts"];
 
 export const MENU_ITEMS: MenuItem[] = [
-  { id: "m1", restaurantId: "r1", name: "Burger Classique", description: "Steak haché, salade, tomate, oignon, sauce maison", price: 3500, image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80", category: "Burgers", popular: true },
-  { id: "m2", restaurantId: "r1", name: "Burger Cheese Bacon", description: "Double steak, cheddar, bacon croustillant", price: 4500, image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=600&auto=format&fit=crop&q=80", category: "Burgers", popular: true },
-  { id: "m3", restaurantId: "r1", name: "Frites Maison", description: "Pommes de terre fraîches, sel de mer", price: 1500, image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&auto=format&fit=crop&q=80", category: "Burgers" },
-  { id: "m4", restaurantId: "r1", name: "Poulet Yassa", description: "Poulet mariné aux oignons et citron, riz blanc", price: 4000, image: "https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600&auto=format&fit=crop&q=80", category: "Plats Sénégalais", popular: true },
-  { id: "m5", restaurantId: "r1", name: "Thieboudienne", description: "Riz au poisson, légumes, sauce tomate", price: 4500, image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop&q=80", category: "Plats Sénégalais" },
-  { id: "m6", restaurantId: "r1", name: "Poulet Grillé", description: "Demi-poulet grillé, sauce piquante, accompagnement", price: 5000, image: "https://images.unsplash.com/photo-1598103442257-8c4f763c5194?w=600&auto=format&fit=crop&q=80", category: "Poulet" },
-  { id: "m7", restaurantId: "r1", name: "Bissap Frais", description: "Jus d'hibiscus maison, 50cl", price: 1000, image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&auto=format&fit=crop&q=80", category: "Boissons" },
-  { id: "m8", restaurantId: "r1", name: "Coca-Cola", description: "Canette 33cl", price: 800, image: "https://images.unsplash.com/photo-1624552184280-9e9631bbeee9?w=600&auto=format&fit=crop&q=80", category: "Boissons" },
-  { id: "m9", restaurantId: "r1", name: "Thiakry", description: "Dessert au mil et yaourt, raisins secs", price: 1500, image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&auto=format&fit=crop&q=80", category: "Desserts" },
-  { id: "m10", restaurantId: "r1", name: "Salade de Fruits", description: "Mangue, ananas, papaye frais", price: 1800, image: "https://images.unsplash.com/photo-1564093497595-593b96d80180?w=600&auto=format&fit=crop&q=80", category: "Desserts" },
+  { id: "m1",  restaurantId: "r1", name: "Burger Classique",      description: "Steak haché, salade, tomate, oignon, sauce maison",         price: 3500, image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80",  category: "Burgers",          popular: true },
+  { id: "m2",  restaurantId: "r1", name: "Burger Cheese Bacon",   description: "Double steak, cheddar, bacon croustillant",                  price: 4500, image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=600&auto=format&fit=crop&q=80",  category: "Burgers",          popular: true },
+  { id: "m3",  restaurantId: "r1", name: "Frites Maison",          description: "Pommes de terre fraîches, sel de mer",                       price: 1500, image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&auto=format&fit=crop&q=80",  category: "Burgers" },
+  { id: "m11", restaurantId: "r1", name: "Pizza Margherita",        description: "Sauce tomate, mozzarella, basilic frais",                    price: 5500, image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&auto=format&fit=crop&q=80",  category: "Pizzas",           popular: true },
+  { id: "m12", restaurantId: "r1", name: "Pizza 4 Fromages",        description: "Mozzarella, cheddar, emmental, parmesan",                   price: 6000, image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80",  category: "Pizzas" },
+  { id: "m13", restaurantId: "r1", name: "Pizza Poulet BBQ",        description: "Poulet grillé, sauce barbecue, oignons caramélisés",         price: 6500, image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&auto=format&fit=crop&q=80",  category: "Pizzas" },
+  { id: "m14", restaurantId: "r1", name: "Tacos Bœuf",              description: "Bœuf épicé, fromage fondu, salade, crème fraîche",           price: 3000, image: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=600&auto=format&fit=crop&q=80",  category: "Tacos",            popular: true },
+  { id: "m15", restaurantId: "r1", name: "Tacos Poulet Fromage",    description: "Poulet mariné, double fromage, sauce blanche et piquante",  price: 3500, image: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&auto=format&fit=crop&q=80",  category: "Tacos" },
+  { id: "m16", restaurantId: "r1", name: "Tacos Mixte",             description: "Bœuf + poulet, légumes grillés, double fromage",             price: 4000, image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop&q=80",  category: "Tacos" },
+  { id: "m4",  restaurantId: "r1", name: "Poulet Yassa",            description: "Poulet mariné aux oignons et citron, riz blanc",            price: 4000, image: "https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600&auto=format&fit=crop&q=80",  category: "Plats Sénégalais", popular: true },
+  { id: "m5",  restaurantId: "r1", name: "Thieboudienne",           description: "Riz au poisson, légumes, sauce tomate",                     price: 4500, image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop&q=80",  category: "Plats Sénégalais" },
+  { id: "m6",  restaurantId: "r1", name: "Poulet Grillé",           description: "Demi-poulet grillé, sauce piquante, accompagnement",         price: 5000, image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop&q=80",  category: "Poulet" },
+  { id: "m17", restaurantId: "r1", name: "Poulet Pané",             description: "Filets panés croustillants, sauce honey mustard",           price: 3500, image: "https://images.unsplash.com/photo-1562967914-608f82629710?w=600&auto=format&fit=crop&q=80",  category: "Poulet" },
+  { id: "m18", restaurantId: "r1", name: "Ailes de Poulet",         description: "6 ailes épicées, sauce ranch maison",                       price: 3000, image: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=600&auto=format&fit=crop&q=80",  category: "Poulet" },
+  { id: "m7",  restaurantId: "r1", name: "Bissap Frais",            description: "Jus d'hibiscus maison, 50cl",                              price: 1000, image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&auto=format&fit=crop&q=80",  category: "Boissons" },
+  { id: "m8",  restaurantId: "r1", name: "Coca-Cola",               description: "Canette 33cl",                                             price:  800, image: "https://images.unsplash.com/photo-1624552184280-9e9631bbeee9?w=600&auto=format&fit=crop&q=80",  category: "Boissons" },
+  { id: "m9",  restaurantId: "r1", name: "Thiakry",                 description: "Dessert au mil et yaourt, raisins secs",                    price: 1500, image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&auto=format&fit=crop&q=80",  category: "Desserts" },
+  { id: "m10", restaurantId: "r1", name: "Salade de Fruits",        description: "Mangue, ananas, papaye frais",                             price: 1800, image: "https://images.unsplash.com/photo-1564093497595-593b96d80180?w=600&auto=format&fit=crop&q=80",  category: "Desserts" },
 ];
 
 export const getRestaurantMenu = (restaurantId: string) => {
@@ -148,3 +156,25 @@ export const getRestaurantMenu = (restaurantId: string) => {
 };
 
 export const formatPrice = (price: number) => `${price.toLocaleString('fr-FR')} FCFA`;
+
+export const MENU_CATEGORY_IMAGES: Record<string, string> = {
+  'Populaires':      'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80',
+  'Burgers':         'https://images.unsplash.com/photo-1550317138-10000687a72b?w=600&auto=format&fit=crop&q=80',
+  'Pizzas':          'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&auto=format&fit=crop&q=80',
+  'Tacos':           'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=600&auto=format&fit=crop&q=80',
+  'Poulet':          'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop&q=80',
+  'Plats Sénégalais':'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop&q=80',
+  'Boissons':        'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&auto=format&fit=crop&q=80',
+  'Desserts':        'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&auto=format&fit=crop&q=80',
+};
+
+export const CONDIMENTS = ['Aucun', 'Ketchup', 'Mayonnaise', 'Sauce piquante', 'Moutarde', 'Sauce barbecue', 'Sauce blanche'];
+
+export const SUPPLEMENTS: Array<{ label: string; price: number }> = [
+  { label: 'Aucun', price: 0 },
+  { label: 'Fromage', price: 200 },
+  { label: 'Bacon', price: 300 },
+  { label: 'Œuf', price: 150 },
+  { label: 'Avocat', price: 250 },
+  { label: 'Double steak', price: 500 },
+];

@@ -8,7 +8,7 @@ const RoleSelector: React.FC = () => {
   const handleClient = () => {
     setRole('client');
     setIsAuthenticated(true);
-    setScreen('location');
+    setScreen('restaurants');
   };
 
   const handleOwner = () => {
